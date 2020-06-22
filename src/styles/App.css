@@ -1,0 +1,14 @@
+@import '~antd/dist/antd.css';
+@font-face{
+    font-family: Poppins;
+    src: url('../assets/font/poppins/Poppins-Regular.ttf');
+}
+
+@font-face{
+    font-family: Poppins-medium;
+    src: url('../assets/font/poppins/Poppins-Medium.ttf');
+}
+@font-face{
+    font-family: Poppins-Bold;
+    src: url('../assets/font/poppins/Poppins-Bold.ttf');
+}
