@@ -12,3 +12,53 @@
     font-family: Poppins-Bold;
     src: url('../assets/font/poppins/Poppins-Bold.ttf');
 }
+
+/* .ant-carousel .slick-slide {
+    text-align: center;
+    height: 300px;
+    line-height: 160px;
+    background: #364d79;
+    border-radius: 30px;
+  }
+.ant-carousel .slick-list {
+      overflow: inherit !important;
+  }
+  .slick-slide{
+  }
+  
+  .ant-carousel .slick-slide h3 {
+    color: #fff;
+  } */
+.container{
+    max-width: 900px;
+    margin: 0px;
+}
+.slick-slide {
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+ .slide-div{
+    margin: auto;
+    background-color: #000;
+    display: flex !important;
+    height: 200px;
+    width: 80%;
+    margin: 10px;
+    box-sizing: border-box;
+    border-radius: 30px;
+ }
+
+.slick-slide img {
+    margin: auto;  /* Magic! */
+    max-width: 100%;
+    max-height: 100%;
+}
+.slick-active{
+}
+.slick-active img{
+}
+.slick-list{
+    /* overflow: visible !important; */
+    margin: 10px;
+}
