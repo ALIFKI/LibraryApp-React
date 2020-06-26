@@ -1,6 +1,6 @@
 import { Drawer, Space,Avatar } from 'antd';
 import React, { Component } from 'react'
-import { NavbarToggler } from 'reactstrap';
+// import { NavbarToggler } from 'reactstrap';
 import Style from "../styles/DrawerStyle.module.css";
 class DrawerApp extends Component {
     constructor(props){

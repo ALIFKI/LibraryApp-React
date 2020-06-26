@@ -1,18 +1,14 @@
 import React,{ Component } from 'react'
-import DrawerApp from '../components/Drawer'
-import { Container,
+// import DrawerApp from '../components/Drawer'
+import {
     Collapse,
     Navbar,
-    NavbarToggler,
-    NavbarBrand,
     Nav,
-    NavItem,
-    NavLink,
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem,
-    NavbarText } from 'reactstrap';
+    DropdownItem
+} from 'reactstrap';
 import Style from '../styles/NavbarStyle.module.css'
 
 class NavbarComponent extends Component {
@@ -22,12 +18,12 @@ class NavbarComponent extends Component {
 
     render() {
         return (
-        <Navbar className={`${Style.Navbar} justify-content-center`} light expand="md" fixed={true}>
+        <Navbar className={`${Style.Navbar} justify-content-center`} light expand="md">
                 <Collapse isOpen={true} navbar className={`pl-4`}>
                 <Nav className="mr-auto" navbar>
                     <UncontrolledDropdown nav inNavbar>
-                    <NavItem>
-                    </NavItem>
+                    {/* <NavItem>
+                    </NavItem> */}
                     <DropdownToggle nav caret>
                         All Kategori 
                     </DropdownToggle>

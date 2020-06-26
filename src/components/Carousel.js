@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import {Carousel} from 'antd'
+// import {Carousel} from 'antd'
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -22,14 +22,22 @@ class SliderComponent extends Component {
         return (
             <div className="container">
             <Slider {...settings}>
-            <div className='slide-div'>
+            <div className='slide-div d-flex flex-row'>
                 <div className={`m-1 ${Style.title}`}>
-                    <h3>Ubur-Ubur Lembur</h3>
+                    <h3 className={`m-2`}>Ubur-Ubur Lembur</h3>
                 </div>
-                
+                <div className={`${Style.cardBook}`}>
+
                 </div>
-            <div className='slide-div'><img src='facebook.jpg' alt="Credit to Alisa Anton on Unsplash"/></div>
-            <div className='slide-div'><img src='facebook.jpg' alt="Credit to Igor Ovsyannykov on Unsplash"/></div>
+            </div>
+            <div className='slide-div d-flex flex-row'>
+                <div className={`m-1 ${Style.title}`}>
+                    <h3 className={`m-2`}>Ubur-Ubur Lembur</h3>
+                </div>
+                <div className={`${Style.cardBook}`}>
+
+                </div>
+            </div>
             </Slider>
           </div>
         )

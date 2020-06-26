@@ -1,9 +1,9 @@
 import React,{ Component } from 'react';
-import { Button,Container, Row, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button,Container, Row, Col, Form } from 'reactstrap';
 import Style from '../styles/RegisterStyle.module.css'
 import { Link } from 'react-router-dom'
 import Logo from '../images/bookshelf.png'
-import {notification } from 'antd';
+// import {notification } from 'antd';
 import InputLogin from '../components/Input';
 
 class RegisterPage extends Component {

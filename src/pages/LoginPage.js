@@ -1,23 +1,56 @@
 import React,{ Component } from 'react'
-import { Button,Container, Row, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button,Container, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import Style from '../styles/LoginStyle.module.css'
 import { Link } from 'react-router-dom'
 import Logo from '../images/bookshelf.png'
-import { AutoComplete,notification } from 'antd';
+import { notification } from 'antd';
 import InputLogin from '../components/Input';
+import axios from 'axios'
+
 class LoginPage extends Component {
-    constructor(props){
-        super(props)
-        console.log(this.props)
+    constructor(props,refs){
+        super(props,refs)
         this.state = {
-          isLoading : true
+          isLoading : false,
         }
+        //get Ref From Child input
+        this.textInput = React.createRef();
+        this.passwordInput = React.createRef()
     }
-    openNotification = () => {
+    //Handle Login
+    handleLogin = (event)=>{
+      this.state.isLoading = true
+      event.preventDefault();
+      axios({
+          method: 'POST',
+          url : 'http://localhost:3000/api/users/login',
+          data : {
+              email : this.textInput.current.state.data,
+              password : this.passwordInput.current.state.data
+          }
+      }).then(
+          (res)=>{
+              localStorage.setItem('token',res.data.data[0].token)
+              localStorage.setItem('refreshToken',res.data.data[0].refreshToken)
+          }
+      )
+      .catch(
+          (err)=>{
+              console.log(err.response.data.msg)
+              this.openNotification(err.response.data.msg,'Error')
+          }
+      )
+      .finally(
+        console.log('detail')
+      )
+ }
+    openNotification = (msg,title) => {
+      // console.log(this.textInput.current.state.data)
+      // console.log(this.passwordInput.current.state.data)
       notification.open({
-        message: 'Notification Title',
+        message: title,
         description:
-          'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+          msg,
         onClick: () => {
           console.log('Notification Clicked!');
         },
@@ -42,14 +75,14 @@ class LoginPage extends Component {
                         <img className='p-3' src={Logo} alt='Logo' />
                       </div>
                       <div className='flex-grow-1 d-flex justify-content-center align-items-center p-3'>
-                        <Form className='login-form mb-5' >
+                        <Form className='login-form mb-5' onSubmit={this.handleLogin}>
                             <div className={Style.title}>
-                                <h1 onClick={this.openNotification}>Login</h1>
+                                <h1>Login</h1>
                                 <p>Welcome Back, Please Login to your account!</p>
                             </div>
                           <div className='input-wrapper no-gutter'>
-                            <InputLogin name={'Email'} required={true} placeholder={'Email'} type={'email'}/>
-                            <InputLogin name={'Password'} required={true} placeholder={'Password'} type={'password'}/>
+                            <InputLogin name={'Email'} required={true} placeholder={'Email'} type={'email'} value={this.state.username} ref={this.textInput}/>
+                            <InputLogin name={'Password'} required={true} placeholder={'Password'} type={'password'} value={this.state.password} ref={this.passwordInput}/>
                             </div>
                           <div className={`d-flex flex-row justify-content-between mt-4 ${Style.fP}`}>
                             <FormGroup check>
@@ -66,7 +99,7 @@ class LoginPage extends Component {
                           </div>
                           <div className={`d-flex flex-column mt-5 pt-5 ${Style.fP}`}>
                             <div className={`p-6`}>By signing up, you agree to Library</div>
-                            <div> <a href='#' className={Style.a}>Terms and Conditions</a> &amp; <a href='#' className={Style.a}>Privacy Policy</a></div>
+                            <div> <a href='/' className={Style.a}>Terms and Conditions</a> &amp; <a href='/' className={Style.a}>Privacy Policy</a></div>
                           </div>
                         </Form>
                       </div>
