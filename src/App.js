@@ -6,6 +6,7 @@ import './styles/App.css'
 import HomePage from './pages/HomePage'
 import RegisterPage from './pages/RegisterPage'
 import DetailPage from './pages/DetailPage';
+import LandingPage from './pages/LandigPage/LandingPage'
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <Route path='/login' component={LoginPage}/>
         <Route path="/details/page/:id" component={DetailPage}/>
         <Route path='/register' component={RegisterPage}/>
-        <Route path='/' component={HomePage}/>
+        <Route path='/' exact component={HomePage}/>
+        <Route path='/home' exact component={LandingPage}/>
       </Switch>
     </Router>
     </>
