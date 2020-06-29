@@ -1,9 +1,10 @@
-import React,{ Component } from 'react'
-import Style from '../styles/SideBarStyle.module.css'
+import React,{ Component } from 'react';
+import Style from '../styles/SideBarStyle.module.css';
 import {
     NavbarBrand
-} from 'reactstrap'
-import {Divider} from 'antd'
+} from 'reactstrap';
+import {Divider, Drawer} from 'antd';
+import DrawerInput from '../components/DrawerInput/DrawerInput'
 
 class SideBar extends Component {
     constructor(){
@@ -17,10 +18,17 @@ class SideBar extends Component {
                 </NavbarBrand>
                 <Divider></Divider>
                 <div className={'d-flex flex-column pr-0 mr-0 pl-2'}>
-                    <div className={`p-2 d-flex align-items-center ${Style.menuList}`}>
-                        <p className={`m-auto`}>Manu List</p>
+                    <div className={`p-2 d-flex align-items-start ${Style.menuList} ${Style.active}`}>
+                        <p className={`ml-2 m-0`}>Lis Book</p>
+                    </div>
+                    <div className={`p-2 d-flex align-items-start ${Style.menuList}`}>
+                        <p className={`m-auto  ml-2`}>Manage Genre</p>
+                    </div>
+                    <div className={`p-2 d-flex align-items-start ${Style.menuList}`}>
+                        <p className={`m-auto  ml-2`}>Mange Author</p>
                     </div>
                 </div>
+                <DrawerInput/>
             </div>
         )
     }

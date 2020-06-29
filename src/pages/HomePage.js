@@ -50,12 +50,16 @@ class HomePage extends Component {
             <Container className={`${Style.bg}`} fluid={true} style={{paddingLeft:'250px',paddingTop:'70px'}}>
                 <div className="row d-flex flex-row align-items-start justify-content-start">
                     <div className="col-8">
-                        <div className="d-felx flex-column">
-                            <SliderComponent/>
-                        </div>
                     </div>
                     <div className="col-md-4">
-                        <h4>Ini card</h4>
+                        <div className={`${Style.cardProfile}`}>
+                            <div className="image">
+
+                            </div>
+                            <div className={`${Style.detailUser}`}>
+                                <p>Admin : ALIFKHI</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <Divider/>

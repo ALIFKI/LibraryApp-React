@@ -1,5 +1,6 @@
 import React,{ Component } from 'react';
 import Style from './NavBarLandingStyle.module.css';
+import Drawer from '../Drawer'
 import {
     HomeOutlined,
     SearchOutlined,
@@ -54,7 +55,7 @@ export default class NavBarLanding extends Component {
                     <SearchOutlined style={{fontSize: '20px'}} />
                     </div>
                     <div className={`${Style.menu}`}>
-                    <MenuOutlined style={{fontSize: '20px'}}/>
+                        <Drawer/>
                     </div>
                 </div>
             </Navbar>

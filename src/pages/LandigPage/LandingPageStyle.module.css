@@ -25,9 +25,9 @@
     .cardWrapper{
         display: flex;
         flex-wrap: nowrap;
-        overflow: scroll;
+        overflow: auto;
         margin: auto;
-        max-width: 1200;
+        max-width: 900px;
     }
     ::-webkit-scrollbar {
         width: 0px;  /* Remove scrollbar space */
@@ -35,6 +35,7 @@
     }
     .card{
         position: relative;
+        overflow: hidden;
         box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 6px -1px;
         border-radius: 5px;
         padding: 0px 10px;
@@ -45,13 +46,25 @@
         background-image: url('https://images.ctfassets.net/hrltx12pl8hq/17iLMo2CS9k9k3d2v9uznb/d3e7080e01a1aedca423eb220efc23ee/shutterstock_1096026971_copy.jpg?fit=fill&w=480&h=400');
         background-repeat:no-repeat;
         background-position: center center;
+    }
+    .card:hover  .block{
+        bottom: 0px;
     }  
         .block{
+            cursor: pointer;
             color: white;
             position: absolute;
             background:rgba(1,1,1,0.5);
             left: 0;
             right: 0;
-            bottom: 0;
-            transition: ease-in;
+            bottom: -200px;
+            transition: 0.5s;
+        }
+        .block .blockContent{
+            color: white;
+            margin: 10px;
+        }
+        .block h3{
+            color: white;
+            margin: 10px;
         }

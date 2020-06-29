@@ -6,4 +6,14 @@
         width: 200px;
         background-color: yellow;
     }
-
+    .cardProfile{
+        font-family: Poppins;
+        border-radius: 20px;
+        background-color: white;
+        min-height: 100px;
+        max-height: 200px;
+        width: 100%;
+    }
+        .detailUser{
+            padding : 10px 20px;
+        }

@@ -35,38 +35,12 @@ export default class LandingPage extends Component {
                         </div>
                         <div className={`${Style.cardWrapper}`}>
                             <div className={`${Style.card}`} >
-                                <div className={`${Style.block}`}>
-                                    <h2>Title</h2>
+                                <div className={`${Style.block}`} onClick={(e)=>{this.props.history.push('/details/page/1')}}>
+                                   <div className={`${Style.blockContent}`}>
+                                   <h3>Title</h3>
+                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                   </div>
                                 </div> 
-                            </div>
-                            <div className={`${Style.card}`} > 
-                            </div>
-                            <div className={`${Style.card}`} > 
-                            </div>
-                            <div className={`${Style.card}`} > 
-                            </div>
-                            <div className={`${Style.card}`} > 
-                            </div>
-                            <div className={`${Style.card}`} > 
-                            </div>
-                            <div className={`${Style.card}`} > 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="row" style={{backgroundColor:'#F4F3F1'}}>
-                    <div className="col-md-12 m-2">
-                        <div className="content">
-                            <h3>Genre</h3>
-                        </div>
-                        <div className={`${Style.cardWrapper}`}>
-                            <div className={`${Style.card}`} > 
-                            </div>
-                            <div className={`${Style.card}`} > 
-                            </div>
-                            <div className={`${Style.card}`} > 
-                            </div>
-                            <div className={`${Style.card}`} > 
                             </div>
                         </div>
                     </div>

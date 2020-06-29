@@ -14,9 +14,16 @@
     color:  #262626;
 }
     .menuList{
-        background-color: #262626;
-        color: white ;
+        text-align: left;
+        font-family: Poppins;
         border-top-left-radius: 26px;
         border-bottom-left-radius: 26px;
         border-bottom-right-radius: 26px;
     }
+    .menuList:hover{
+        background-color: #F5F6FA;
+    }
+        .active{
+            background-color: #262626;
+            color: white ;
+        }

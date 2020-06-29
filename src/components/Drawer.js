@@ -2,12 +2,15 @@ import { Drawer, Space,Avatar } from 'antd';
 import React, { Component } from 'react'
 // import { NavbarToggler } from 'reactstrap';
 import Style from "../styles/DrawerStyle.module.css";
+import {
+  MenuOutlined
+} from '@ant-design/icons';
 class DrawerApp extends Component {
     constructor(props){
         super(props)
         this.state = { 
           visible: false, 
-          placement: 'left',
+          placement: 'right',
           active : ''
        };
     }
@@ -37,12 +40,9 @@ class DrawerApp extends Component {
     return (
       <>
         <Space>
-            <button className={`hamburger hamburger--3dx ${this.state.active}`} type="button"
-                    aria-label="Menu" aria-controls="navigation" aria-expanded="true" onClick={this.showDrawer}>
-              <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-              </span>
-            </button>
+          <div className="class" onChange={this.showDrawer}>
+          <MenuOutlined style={{fontSize: '20px'}} onClick={this.showDrawer}/>
+          </div>
         </Space>
         <Drawer
           width={320}
@@ -51,7 +51,7 @@ class DrawerApp extends Component {
           onClose={this.onClose}
           visible={visible}
           key={placement}
-          maskStyle={{opacity:0,backgroundColor: 'rgba(0, 0, 0, 0.0)'}}
+          // maskStyle={{opacity:0,backgroundColor: 'rgba(0, 0, 0, 0.0)'}}
         >
           <div className="menu d-flex justify-content-end align-items-end">
             <button className={`hamburger hamburger--3dx ${this.state.active}`} type="button"

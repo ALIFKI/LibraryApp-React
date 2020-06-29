@@ -68,6 +68,12 @@ textarea:focus ~ .bar:before {
   transition: 300ms ease all;
 }
 
+.input[type="file"] ~ .label{
+  top: -15px !important;
+  font-size: 14px;
+  color: #202020;
+}
+
 .bar {
   position: relative;
   display: block;
