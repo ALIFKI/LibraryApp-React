@@ -8,12 +8,18 @@ PlusOutlined,UploadOutlined
 } from '@ant-design/icons';
 import { Editor } from '@tinymce/tinymce-react';
 import Axios from 'axios';
+import openNotificationWithIcon from '../../components/Notif' 
+
 const { Option } = Select;
 
 class DrawerInput extends Component {
     constructor(props,refs){
         super(props,refs)
         this.state = { 
+          data : {
+            author : [],
+            genre : []
+          },
           visible: false, 
           placement: 'right',
           active : '',
@@ -22,87 +28,146 @@ class DrawerInput extends Component {
           image : '',
           genre : '',
           author : '',
+          status : '',
        };
        //get Ref from Child Component
        this.textInput = React.createRef();
        this.image = React.createRef();
     }
-  openNotification = () => {
-      notification.open({
-        message: 'helo',
-        description:
-          'msg',
-        onClick: () => {
-          console.log('Notification Clicked!');
-        },
+    componentDidMount(){
+      this.getAllAuthor();
+      this.getAllGenre()
+    }
+
+    getAllAuthor = ()=>{
+      Axios({
+        method : 'GET',
+        url : 'http://localhost:3000/api/authors?search=&limit=200&page=1&sort=0&by=author',
+        headers : {
+          Authorization : localStorage.getItem('token')
+      },
+      }).then((res)=>{
+        this.setState({
+          data : {
+            ...this.state.data,
+            author : res.data.data
+          }
+        })
+        console.log(this.state)
+      }).catch((err)=>{
+        console.log(err)
+      }).finally(
+      )
+    }
+    getAllGenre = ()=>{
+      Axios({
+        method : 'GET',
+        url : 'http://localhost:3000/api/genres?search=&page=1&limit=10&sort=0&by=genre',
+        headers : {
+          Authorization : localStorage.getItem('token')
+      },
+      }).then((res)=>{
+        this.setState({
+          data : {
+            ...this.state.data,
+            genre : res.data.data
+          }
+        })
+        console.log(this.state)
+      }).catch((err)=>{
+        console.log(err)
+      }).finally(
+      )
+    }
+    openNotification = () => {
+        notification.open({
+          message: 'helo',
+          description:
+            'msg',
+          onClick: () => {
+            console.log('Notification Clicked!');
+          },
+        });
+      };
+    showDrawer = () => {
+      this.setState({
+        visible: true,
+        active : 'is-active'
       });
     };
-  showDrawer = () => {
-    this.setState({
-      visible: true,
-      active : 'is-active'
-    });
-  };
 
-  onClose = () => {
-    this.setState({
-      visible: false,
-      active : ''
-    });
-  };
-
-  onChange = e => {
-    this.setState({
-      placement: e.target.value,
-    });
-  };
-  //genreSelect
-  handleGenreOnChange = (e)=>{
-    this.setState({
-      genre : e
-    })
-  }
-  //authorSelect
-  handleAuthorOnChange = (e)=>{
-    console.log(e)
-    this.setState({
-      author : e
-    })
-  }
-  //handel Tiny mCe change
-  handleEditorChange = (content,editor)=>{
+    onClose = () => {
       this.setState({
-          content : content
-      })
-  }
-  //handel Form submit
-  handleOnsubmit = (event) =>{
-    event.preventDefault();
-    console.log(this.state)
-    const formData = new FormData()
-    formData.append('title',this.textInput.current.state.data);
-    formData.append('image',this.image.current.state.image[0]);
-    formData.append('genre',this.state.genre);
-    formData.append('author',this.state.author);
-    formData.append('descriptions',this.state.content);
-    Axios({
-      method : 'POST',
-      url : 'url',
-      data : formData,
-      headers : {
-        'Content-Type' : 'multipart/form-data'
-      }
-    }).then(
-      (res)=>{
-        console.log(res)
-      }
-    ).catch(
-      (err)=>{
-        console.log(err)
-      }
-    )
+        visible: false,
+        active : ''
+      });
+    };
 
-  }
+    onChange = e => {
+      this.setState({
+        placement: e.target.value,
+      });
+    };
+    //genreSelect
+    handleGenreOnChange = (e)=>{
+      this.setState({
+        genre : e
+      })
+    }
+    //status
+    handleStatusOnChange = (e)=>{
+      this.setState({
+        status : e
+      })
+    }
+    //authorSelect
+    handleAuthorOnChange = (e)=>{
+      console.log(e)
+      this.setState({
+        author : e
+      })
+    }
+    //handel Tiny mCe change
+    handleEditorChange = (content,editor)=>{
+        this.setState({
+            content : content
+        })
+    }
+    //handel Form submit
+    handleOnsubmit = (event) =>{
+      event.preventDefault();
+      console.log(this.state)
+      const formData = new FormData()
+      formData.append('title',this.textInput.current.state.data);
+      formData.append('image',this.image.current.state.image[0]);
+      formData.append('id_genre',this.state.genre);
+      formData.append('id_author',this.state.author);
+      formData.append('description',this.state.content);
+      formData.append('status',this.state.status)
+      Axios({
+        method : 'POST',
+        url : 'http://localhost:3000/api/books',
+        data : formData,
+        headers : {
+          'Content-Type' : 'multipart/form-data',
+          Authorization : localStorage.getItem('token')
+        }
+      }).then(
+        (res)=>{
+          console.log(res)
+          openNotificationWithIcon('success','Success',res.data.msg)
+          this.setState({
+            visible : false
+          })
+        }
+      ).catch(
+        (err)=>{
+          openNotificationWithIcon('error','Error',err.response)
+        }
+      ).finally(
+      )
+
+    }
 
   render() {
     const { placement, visible } = this.state;
@@ -148,8 +213,16 @@ class DrawerInput extends Component {
                     <Input.Group compact>
                         <label>Genre</label>
                         <Select onChange={this.handleGenreOnChange} optionFilterProp="children" style={{width:'100%'}}>
-                            <Option value="Zhejiang">Zhejiang</Option>
-                            <Option value="2">Jiangsu</Option>
+                          {this.state.data.genre.map((res)=>{
+                            return <Option key={res.id_genre} value={res.id_genre}>{res.genre}</Option>
+                          })}
+                        </Select>
+                    </Input.Group>
+                    <Input.Group compact>
+                        <label>Status</label>
+                        <Select onChange={this.handleStatusOnChange} optionFilterProp="children" style={{width:'100%'}}>
+                          <Option value='Available'>Available</Option>
+                          <Option value='Unavailable'>Unavailable</Option>
                         </Select>
                     </Input.Group>
                     <Input.Group compact>
@@ -164,9 +237,11 @@ class DrawerInput extends Component {
                             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                           }
                         >
-                          <Option value="1">Jack</Option>
-                          <Option value="2">Lucy</Option>
-                          <Option value="3">Tom</Option>
+                          {
+                            this.state.data.author.map((res)=>{
+                            return <Option key={res.id_author} value={res.id_author}>{res.author}</Option>
+                            })
+                          }
                         </Select>
                     </Input.Group>
                         

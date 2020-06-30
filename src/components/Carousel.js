@@ -11,8 +11,8 @@ class SliderComponent extends Component {
     }
     render() {
         const settings = {
-            dots: true,
-            autoplay: false,
+            dots: false,
+            autoplay: true,
             infinite: true,
             slidesToShow: 1,
             slidesToScroll: 1,

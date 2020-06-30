@@ -5,7 +5,7 @@ class SearchPage extends Component {
         return (
             <div>
                 <h3>
-                    ini Search page
+                    Ini Search
                 </h3>
             </div>
         )

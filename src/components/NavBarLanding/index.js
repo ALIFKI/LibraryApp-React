@@ -44,7 +44,7 @@ export default class NavBarLanding extends Component {
         return (
             <div style={{backgroundColor:'white'}}>
             <Navbar light expand="md" className={`${Style.Navbar}`}>
-                <NavbarBrand>Home</NavbarBrand>
+                <NavbarBrand>Library App</NavbarBrand>
                 {/* <NavbarToggler onClick={this.toggle} /> */}
                 <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="mr-auto" navbar>

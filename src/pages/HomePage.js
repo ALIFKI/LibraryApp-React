@@ -34,9 +34,16 @@ class HomePage extends Component {
          )
          .catch(
              (err)=>{
-                 console.log(err)
+                 console.log(err.response.data)
              }
          )
+    }
+    //sliceBook 
+    handleOnDelete = (id)=>()=>{
+        console.log('res')
+        var arr = [...this.state.book]
+        arr.splice(id, 1);
+        this.setState({book: arr});
     }
     componentDidMount(){
         this.getAll()
@@ -57,7 +64,7 @@ class HomePage extends Component {
 
                             </div>
                             <div className={`${Style.detailUser}`}>
-                                <p>Admin : ALIFKHI</p>
+                                <p>Admin : ALIFKHI </p>
                             </div>
                         </div>
                     </div>
@@ -65,12 +72,12 @@ class HomePage extends Component {
                 <Divider/>
                 <div className="row">
                     <div className="col-12">
-                        <h3 className='pl-5'>ListBook</h3>
+                        <h3 className='pl-5'>Books List</h3>
                     </div>
                     <div className="col-md-12 d-flex flex-wrap justify-content-center align-items-center p-0">
                         {
                             this.state.book.map((row,index)=>{
-                                return <CardBook key={row.id} data={row} history={this.props.history}/>
+                                return <CardBook i={index} key={row.id} data={row} history={this.props.history} onDelete={this.handleOnDelete}/>
                             })
                         }
                     </div>

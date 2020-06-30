@@ -1,7 +1,7 @@
 import React,{ Component } from 'react'
 import { Button,Container, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import Style from '../styles/LoginStyle.module.css'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import Logo from '../images/bookshelf.png'
 import { notification } from 'antd';
 import InputLogin from '../components/Input';
@@ -19,7 +19,9 @@ class LoginPage extends Component {
     }
     //Handle Login
     handleLogin = (event)=>{
-      this.state.isLoading = true
+      this.setState({
+        isLoading : true
+      })
       event.preventDefault();
       axios({
           method: 'POST',
@@ -32,6 +34,13 @@ class LoginPage extends Component {
           (res)=>{
               localStorage.setItem('token',res.data.data[0].token)
               localStorage.setItem('refreshToken',res.data.data[0].refreshToken)
+              if(res.data.data[0].role == 1){
+                this.props.history.push('/')
+              }
+              else{
+                this.props.history.push('/home')
+              }
+                
           }
       )
       .catch(
@@ -45,8 +54,6 @@ class LoginPage extends Component {
       )
  }
     openNotification = (msg,title) => {
-      // console.log(this.textInput.current.state.data)
-      // console.log(this.passwordInput.current.state.data)
       notification.open({
         message: title,
         description:
@@ -77,7 +84,7 @@ class LoginPage extends Component {
                       <div className='flex-grow-1 d-flex justify-content-center align-items-center p-3'>
                         <Form className='login-form mb-5' onSubmit={this.handleLogin}>
                             <div className={Style.title}>
-                                <h1>Login</h1>
+                                <h1 onClick={this.openNotification}>Login</h1>
                                 <p>Welcome Back, Please Login to your account!</p>
                             </div>
                           <div className='input-wrapper no-gutter'>
