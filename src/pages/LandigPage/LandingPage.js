@@ -43,7 +43,7 @@ export default class LandingPage extends Component {
             <Container fluid className={Style.Container}>
                 <div className="row">
                     <div className="col-md-12">
-                        <NavbarLanding/>
+                        <NavbarLanding history={this.props}/>
                     </div>
                 </div>
                 <div className="row">

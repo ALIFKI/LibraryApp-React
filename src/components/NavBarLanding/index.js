@@ -22,11 +22,12 @@ import {
   } from 'reactstrap';
 
 export default class NavBarLanding extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             isOpen : false
         }
+        console.log(props)
     }
     toggle = ()=>{
         if (this.state.isOpen == false) {
@@ -40,6 +41,9 @@ export default class NavBarLanding extends Component {
             })
         }
     }
+    onClickSearch= ()=>{
+        this.props.history.history.push('/search')
+    }
     render() {
         return (
             <div style={{backgroundColor:'white'}}>
@@ -51,7 +55,7 @@ export default class NavBarLanding extends Component {
                 </Nav>
                 </Collapse>
                 <div className='d-flex flex-row justify-content-center align-items-center'>
-                    <div className="search">
+                    <div className={`${Style.search}`} onClick={this.onClickSearch}>
                     <SearchOutlined style={{fontSize: '20px'}} />
                     </div>
                     <div className={`${Style.menu}`}>

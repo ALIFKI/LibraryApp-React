@@ -10,7 +10,7 @@ import LandingPage from './pages/LandigPage/LandingPage'
 import SearchPage from './pages/SearchPage/SearchPaga';
 
 const Auth = {
-  isLogin:true,
+  isLogin:false,
   OnAuth(){
       this.isLogin = false
   },
@@ -41,7 +41,7 @@ function App() {
         <Route path='/login' component={LoginPage}/>
         <SecureRoute path="/details/page/:id" component={DetailPage}/>
         <Route path='/register' component={RegisterPage}/>
-        <SecureRoute path='/' exact component={HomePage}/>
+        <SecureRoute path='/dashboard' exact component={HomePage}/>
         <SecureRoute path='/home' exact component={LandingPage}/>
         <SecureRoute path='/search' exact component={SearchPage}/>
         {/* <Route exact path="/redirect">

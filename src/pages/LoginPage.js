@@ -34,8 +34,9 @@ class LoginPage extends Component {
           (res)=>{
               localStorage.setItem('token',res.data.data[0].token)
               localStorage.setItem('refreshToken',res.data.data[0].refreshToken)
+              localStorage.setItem('userData',res.data.data[0])
               if(res.data.data[0].role == 1){
-                this.props.history.push('/')
+                this.props.history.push('/dashboard')
               }
               else{
                 this.props.history.push('/home')

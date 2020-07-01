@@ -1,18 +1,17 @@
 import React,{ Component } from 'react'
 import { Card } from 'antd'
 import { EditOutlined,DeleteOutlined,LoadingOutlined } from '@ant-design/icons'
-import Style from '../styles/Card/CardStyle.module.css'
-import openNotificationWithIcon from './Notif'
-import DrawerEdit from '../components/DrawerEdit/DrawerEdit';
+import openNotificationWithIcon from '../Notif'
+import Style from './CardStyle.module.css'
 import Axios from 'axios'
-class CardBook extends Component {
+//cardSearch
+class CardSearch extends Component {
     constructor(props){
         super(props)
         this.state ={
             title : 'Ubur Ubur Lembur',
             desc : 'Lorem Ipsum',
-            deleteLoading : false,
-            visible : false
+            deleteLoading : false
         }
     }
     //slice 
@@ -44,19 +43,13 @@ class CardBook extends Component {
         return (
             <div className={`${Style.cardBook}`} onClick={(e)=>{
                 e.target.className === 'detail'?
-                this.props.history.push(`/details/page/${this.props.data.id}`) : console.log()
+                this.props.history.push(`/details/page/${this.props.data.id}`) : console.log('res')
             }}>
             <Card
             className='detail'
             hoverable
             style={{ width: 230,overflow: 'hidden'}}
             cover={<img alt="Picture" src={`http://localhost:3000/uploads/${this.props.data.image}`} className='detail'/>}>
-                <div className={`${Style.float} ${Style.edit}`} onClick={(e)=>{this.setState({visible : true})}}>
-                    <DrawerEdit visible={this.state.visible} id={this.props.data.id}/>
-                </div>
-                <div className={`${Style.float} ${Style.delete}`} onClick={this.handleOnDelete(this.props.data.id)}>
-                    {this.state.deleteLoading? <LoadingOutlined/> : <DeleteOutlined/>}
-                </div>
             <Meta title={this.props.data.title} description={this.props.data.desc} />
           </Card>
           </div>
@@ -64,4 +57,4 @@ class CardBook extends Component {
     }
 }
 
-export default CardBook
+export default CardSearch
