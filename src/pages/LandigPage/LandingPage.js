@@ -4,39 +4,52 @@ import NavbarLanding from '../../components/NavBarLanding/index'
 import Style from './LandingPageStyle.module.css'
 import CarouselLanding from '../../components/Carousel/index'
 import CardBook from '../../components/CardBook'
-
+import Axios from 'axios'
 export default class LandingPage extends Component {
     constructor(props){
         super(props)
         this.state = {
             books : [
-                {
-                    id : 1,
-                    title : 'Books title',
-                    desc : 'Lorem ipsum dolor loorwm lidasdk jhndsaob'
-                },
-                {
-                    id : 1,
-                    title : 'Books title',
-                    desc : 'Lorem ipsum dolor loorwm lidasdk jhndsaob'
-                },
-                {
-                    id : 1,
-                    title : 'Books title',
-                    desc : 'Lorem ipsum dolor loorwm lidasdk jhndsaob'
-                },
-                {
-                    id : 1,
-                    title : 'Books title',
-                    desc : 'Lorem ipsum dolor loorwm lidasdk jhndsaob'
-                },
-                {
-                    id : 1,
-                    title : 'Books title',
-                    desc : 'Lorem ipsum dolor loorwm lidasdk jhndsaob'
-                },
-            ]
+            ],
+            adventure : [],
         }
+    }
+
+    getData = ()=>{
+        Axios({
+            method : 'GET',
+            url : 'http://localhost:3000/api/books?search=&page=1&limit=100&sort=0&by=title&order=title',
+            headers: {
+                Authorization : localStorage.getItem('token'),
+            }
+        }).then((res)=>{
+            console.log(res)
+            this.setState({
+                books : res.data.data
+            })
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+    getGenre = ()=>{
+        Axios({
+            method : 'GET',
+            url : 'http://localhost:3000/api/books?search=&page=1&limit=100&sort=1&by=title&order=title',
+            headers: {
+                Authorization : localStorage.getItem('token'),
+            }
+        }).then((res)=>{
+            console.log(res)
+            this.setState({
+                adventure : res.data.data
+            })
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+    componentDidMount(){
+        this.getData()
+        this.getGenre()
     }
     render() {
         return (
@@ -54,7 +67,7 @@ export default class LandingPage extends Component {
                         <p className={`lead ${Style.textJumbotron}`}>This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
                         </div>
                         <div className={`d-flex flex-row justify-content-center align-items-center ${Style.carousel}`}>
-                            <CarouselLanding/>
+                            <CarouselLanding history={this.props.history}/>
                         </div>
                     </Jumbotron>
                     </div>
@@ -62,11 +75,35 @@ export default class LandingPage extends Component {
                 <div className="row" style={{backgroundColor:'#F4F3F1'}}>
                     <div className="col-md-12 m-2" style={{paddingTop: '310px'}}>
                         <div className={Style.content}>
-                            <h3>Genre</h3>
+                            <h3>Classic</h3>
                         </div>
                         <div className={`${Style.cardWrapper}`}>
                             {this.state.books.map((row)=>{
-                                return <CardBook data={row} history={this.props.history} l={this.props}/>
+                                return <CardBook key={row.id} data={row} history={this.props.history} l={this.props}/>
+                            })}
+                        </div>
+                    </div>
+                </div>
+                <div className="row" style={{backgroundColor:'#F4F3F1'}}>
+                    <div className="col-md-12 m-2" style={{paddingTop: '10px'}}>
+                        <div className={Style.content}>
+                            <h3>Horor</h3>
+                        </div>
+                        <div className={`${Style.cardWrapper}`}>
+                            {this.state.adventure.map((row)=>{
+                                return <CardBook key={row.id} data={row} history={this.props.history} l={this.props}/>
+                            })}
+                        </div>
+                    </div>
+                </div>
+                <div className="row" style={{backgroundColor:'#F4F3F1'}}>
+                    <div className="col-md-12 m-2" style={{paddingTop: '10px'}}>
+                        <div className={Style.content}>
+                            <h3>Adventure</h3>
+                        </div>
+                        <div className={`${Style.cardWrapper}`}>
+                            {this.state.books.map((row)=>{
+                                return <CardBook data={row} key={row.id} history={this.props.history} l={this.props}/>
                             })}
                         </div>
                     </div>

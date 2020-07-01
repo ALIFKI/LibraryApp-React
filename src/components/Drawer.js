@@ -11,8 +11,10 @@ class DrawerApp extends Component {
         this.state = { 
           visible: false, 
           placement: 'right',
-          active : ''
+          active : '',
+          user : {}
        };
+       console.log(props)
     }
 
   showDrawer = () => {
@@ -34,6 +36,21 @@ class DrawerApp extends Component {
       placement: e.target.value,
     });
   };
+
+  handleLogout=()=>{
+    localStorage.clear();
+    this.props.history.push('/login')
+  }
+
+  getUser = ()=>{
+    this.setState({
+      user : JSON.parse(localStorage.getItem('userData'))
+    })
+  }
+
+  componentWillMount(){
+    this.getUser()
+  }
 
   render() {
     const { placement, visible } = this.state;
@@ -66,13 +83,13 @@ class DrawerApp extends Component {
             <Avatar size={140} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
             </div>
             <div className={`name m-auto ${Style.name}`}>
-              <h5> Niki Zefanya </h5>
+              <h5> {this.state.user.name} </h5>
             </div>
           </div>
           <div className={`d-flex flex-column justify-content-center p-2 pt-4 ${Style.menuList}`}>
           <p>Explore</p>
           <p>Explore</p>
-          <p>Explore</p>
+          <p onClick={this.handleLogout}>Logout</p>
           </div>
         </Drawer>
       </>

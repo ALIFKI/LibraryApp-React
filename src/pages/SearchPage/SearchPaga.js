@@ -4,6 +4,7 @@ import {Switch, List, Avatar } from 'antd';
 import { Container, Card } from 'reactstrap';
 import Style from './SearchPageStyle.module.css';
 import CardSearch from '../../components/CardSearch/Card'
+import CardBook from '../../components/Card'
 import axios from 'axios'
 const {Search } = Input
 const { Option } = Select
@@ -12,6 +13,7 @@ class SearchPage extends Component {
     constructor(){
         super()
         this.state = {
+            user : {},
             isLoading : false,
             books : [],
             by : 'title',
@@ -21,7 +23,7 @@ class SearchPage extends Component {
             totalPage : 1,
             total_data : 0,
             current : 1,
-            limit : 10,
+            limit : 8,
         }
     }
     onPaginate=()=>{
@@ -97,7 +99,8 @@ class SearchPage extends Component {
         )
 
     }
-   handleByOnChange = (e)=>{
+
+    handleByOnChange = (e)=>{
         this.setState({
         by : e
         })
@@ -122,7 +125,19 @@ class SearchPage extends Component {
             current : page
         },this.getPage(page))
       };
+    getUser = ()=>{
+        this.setState({
+            user : JSON.parse(localStorage.getItem('userData'))
+        })
+    }
+    handleOnDelete = (id)=>()=>{
+        console.log('res')
+        // var arr = [...this.state.book]
+        // arr.splice(id, 1);
+        // this.setState({book: arr});
+    }
     componentDidMount() {
+        this.getUser()
         document.addEventListener('scroll', this.handleScroll);
       }
       handleScroll() {
@@ -138,12 +153,19 @@ class SearchPage extends Component {
         }
     }
     render() {
-        let pagination
+        let pagination;
+        let Card;
         if (this.state.totalPage>1) {
             pagination = <Pagination current={this.state.current} onChange={this.onChange} total={this.state.total_data} pageSize={this.state.limit} />
         }
         else{
             pagination = <div className="l"></div>
+        }
+        if(this.state.user.role == 1){
+
+        }
+        else{
+
         }
         return (
             <>
@@ -192,7 +214,12 @@ class SearchPage extends Component {
                             <div className="col-md-12 d-flex flex-wrap justify-content-center align-items-center p-5">
                                 {
                                     this.state.books.map((row,index)=>{
+                                        if(this.state.user.role == 1){
+                                            return <CardBook i={index} key={row.id} data={row} history={this.props.history} onDelete={this.handleOnDelete}/>
+                                        }
+                                        else{
                                         return <CardSearch key={row.id} data={row} history={this.props.history}/>
+                                        }
                                     })
                                 }
                             </div>

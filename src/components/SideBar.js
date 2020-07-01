@@ -5,11 +5,21 @@ import {
 } from 'reactstrap';
 import {Divider, Drawer} from 'antd';
 import DrawerInput from '../components/DrawerInput/DrawerInput'
+import {SearchOutlined,LogoutOutlined} from '@ant-design/icons'
 
 class SideBar extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
+        console.log(this.props)
     }
+
+    handleOnClick=()=>{
+        this.props.history.push('/search')
+    }
+    handleLogout=()=>{
+        localStorage.clear();
+        this.props.history.push('/login')
+      }
     render() {
         return (
             <div className={`${Style.sidebar}`}>
@@ -26,6 +36,12 @@ class SideBar extends Component {
                     </div>
                     <div className={`p-2 d-flex align-items-start ${Style.menuList}`}>
                         <p className={`m-auto  ml-2`}>Mange Author</p>
+                    </div>
+                    <div className={`p-2 d-flex align-items-start ${Style.menuList}`} onClick={this.handleOnClick}>
+                        <p className={`m-auto  ml-2`}><SearchOutlined/>Search</p>
+                    </div>
+                    <div className={`p-2 d-flex align-items-start ${Style.menuList}`} onClick={this.handleLogout}>
+                        <p className={`m-auto  ml-2`}><LogoutOutlined style={{marginRight: '5px'}} />Logout</p>
                     </div>
                 </div>
                 <DrawerInput/>

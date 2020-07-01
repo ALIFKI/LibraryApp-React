@@ -4,7 +4,36 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Style from './CarouselStyle.module.css'
 import {Button} from 'reactstrap'
+import Axios from 'axios';
 export default class CarouselLanding extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            book : []
+        }
+    }
+    getData = ()=>{
+        Axios({
+            method : 'GET',
+            url : 'http://localhost:3000/api/books?search=&page=1&limit=3&sort=0&by=title&order=created_at',
+            headers: {
+                Authorization : localStorage.getItem('token'),
+            }
+        }).then((res)=>{
+            console.log(res)
+            this.setState({
+                book : res.data.data
+            })
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+    handleOnclick=(id)=>()=>{
+        this.props.history.push('/details/page/'+id)
+    }
+    componentWillMount(){
+        this.getData()
+    }
     render() {
         const settings = {
             dots: true,
@@ -18,42 +47,22 @@ export default class CarouselLanding extends Component {
         return (
             <div className="container">
             <Slider {...settings}>
-            <div className='slide-div d-flex flex-row justify-content-end'>
-                <div className={`${Style.cardBook}`}>
-                    <img src="https://images.ctfassets.net/hrltx12pl8hq/17iLMo2CS9k9k3d2v9uznb/d3e7080e01a1aedca423eb220efc23ee/shutterstock_1096026971_copy.jpg?fit=fill&w=480&h=400" alt="" />
-                </div>
-                <div className={`m-1 ${Style.title}`}>
-                    <h3 className={`m-2`}>Ubur-Ubur Lembur</h3>
-                    <p className={`Desc`}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam temporibus perferendis quod id! Rem autem quam ut esse
-                    </p>
-                    <Button className={`btn right-btn ${Style.btnLogin} ${Style.fP}`} style={{backgroundColor: 'black'}}>Borrow</Button>
-                </div>
-            </div>
-            <div className='slide-div d-flex flex-row justify-content-end'>
-                <div className={`${Style.cardBook}`}>
-                    <img src="https://images.ctfassets.net/hrltx12pl8hq/17iLMo2CS9k9k3d2v9uznb/d3e7080e01a1aedca423eb220efc23ee/shutterstock_1096026971_copy.jpg?fit=fill&w=480&h=400" alt="" />
-                </div>
-                <div className={`m-1 ${Style.title}`}>
-                    <h3 className={`m-2`}>Ubur-Ubur Lembur</h3>
-                    <p className={`Desc`}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam temporibus perferendis quod id! Rem autem quam ut esse
-                    </p>
-                    <Button className={`btn right-btn ${Style.btnLogin} ${Style.fP}`} style={{backgroundColor: 'black'}}>Borrow</Button>
-                </div>
-            </div>
-            <div className='slide-div d-flex flex-row justify-content-end'>
-                <div className={`${Style.cardBook}`}>
-                    <img src="https://images.ctfassets.net/hrltx12pl8hq/17iLMo2CS9k9k3d2v9uznb/d3e7080e01a1aedca423eb220efc23ee/shutterstock_1096026971_copy.jpg?fit=fill&w=480&h=400" alt="" />
-                </div>
-                <div className={`m-1 ${Style.title}`}>
-                    <h3 className={`m-2`}>Ubur-Ubur Lembur</h3>
-                    <p className={`Desc`}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam temporibus perferendis quod id! Rem autem quam ut esse
-                    </p>
-                    <Button className={`btn right-btn ${Style.btnLogin} ${Style.fP}`} style={{backgroundColor: 'black'}}>Borrow</Button>
-                </div>
-            </div>
+                {
+                    this.state.book.map((row,index)=>{
+                        return <div className='slide-div d-flex flex-row justify-content-end' key={index}>
+                        <div className={`${Style.cardBook}`}>
+                            <img src={`http://localhost:3000/uploads/${row.image}`} alt="" />
+                        </div>
+                        <div className={`m-1 ${Style.title}`}>
+                            <h3 className={`m-2`}> {row.title} </h3>
+                            <p className={`Desc`}>
+                                {row.description.substring(0,100)}...
+                            </p>
+                            <Button className={`btn right-btn ${Style.btnLogin} ${Style.fP}`} style={{backgroundColor: 'black'}} onClick={this.handleOnclick(row.id)}>detail</Button>
+                        </div>
+                    </div>
+                    })
+                }
             {/* <div className='slide-div d-flex flex-row'>
                 <div className={`m-1 ${Style.title}`}>
                     <h3 className={`m-2`}>Ubur-Ubur Lembur</h3>

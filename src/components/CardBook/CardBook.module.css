@@ -38,14 +38,18 @@
         overflow: hidden;
         box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 6px -1px;
         border-radius: 5px;
-        padding: 0px 10px;
+        /* padding: 0px 10px; */
         margin: 20px;
         height: 240px;
         width: 170px;
         flex : 0 0 auto;
-        background-image: url('https://images.ctfassets.net/hrltx12pl8hq/17iLMo2CS9k9k3d2v9uznb/d3e7080e01a1aedca423eb220efc23ee/shutterstock_1096026971_copy.jpg?fit=fill&w=480&h=400');
         background-repeat:no-repeat;
         background-position: center center;
+    }
+    .card img{
+        height: 100%;
+        width: 100%;
+        margin: auto;
     }
     .card:hover  .block{
         bottom: 0px;
@@ -57,8 +61,8 @@
             background:rgba(1,1,1,0.5);
             left: 0;
             right: 0;
-            bottom: -200px;
-            transition: 0.5s;
+            bottom: -240px;
+            transition: 0.6s;
         }
         .block .blockContent{
             color: white;

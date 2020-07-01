@@ -59,7 +59,7 @@ export default class NavBarLanding extends Component {
                     <SearchOutlined style={{fontSize: '20px'}} />
                     </div>
                     <div className={`${Style.menu}`}>
-                        <Drawer/>
+                        <Drawer history={this.props.history.history}/>
                     </div>
                 </div>
             </Navbar>

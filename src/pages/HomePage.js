@@ -12,6 +12,7 @@ class HomePage extends Component {
     constructor(props){
         super(props)
         this.state = {
+            user : {},
             book : [],
             username : '',
             password : ''
@@ -19,7 +20,11 @@ class HomePage extends Component {
         }
         console.log(props)
     }
-
+    componentWillMount(){
+        this.setState({
+            user : JSON.parse(localStorage.getItem('userData'))
+        })
+    }
     getAll = ()=>{
          axios({
              method: 'GET',
@@ -54,7 +59,7 @@ class HomePage extends Component {
         return (
             <>
             <NavbarComponent/>
-            <SideBar/>
+            <SideBar history={this.props.history}/>
             <Container className={`${Style.bg}`} fluid={true} style={{paddingLeft:'250px',paddingTop:'70px'}}>
                 <div className="row d-flex flex-row align-items-start justify-content-start">
                     <div className="col-8">
@@ -65,7 +70,7 @@ class HomePage extends Component {
                                 <img src='./admin.svg'/>
                             </div>
                             <div className={`${Style.detailUser}`}>
-                                <p>Admin : ALIFKHI </p>
+                                <p>Admin : {this.state.user.name}</p>
                             </div>
                         </div>
                     </div>
