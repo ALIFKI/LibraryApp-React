@@ -17,6 +17,7 @@ class HomePage extends Component {
             password : ''
 
         }
+        console.log(props)
     }
 
     getAll = ()=>{
@@ -60,8 +61,8 @@ class HomePage extends Component {
                     </div>
                     <div className="col-md-4">
                         <div className={`${Style.cardProfile}`}>
-                            <div className="image">
-
+                            <div className={`${Style.image}`}>
+                                <img src='./admin.svg'/>
                             </div>
                             <div className={`${Style.detailUser}`}>
                                 <p>Admin : ALIFKHI </p>

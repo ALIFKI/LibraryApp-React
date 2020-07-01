@@ -9,25 +9,41 @@ import DetailPage from './pages/DetailPage';
 import LandingPage from './pages/LandigPage/LandingPage'
 import SearchPage from './pages/SearchPage/SearchPaga';
 
+const Auth = {
+  isLogin:true,
+  OnAuth(){
+      this.isLogin = false
+  },
+  getLog(){
+    if (localStorage.getItem('token')) {
+
+      this.isLogin = true
+    }
+      return this.isLogin
+  }
+}
+
+const SecureRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+  Auth.getLog() == true
+      ? <Component {...props} />
+      : <Redirect to='/register' />
+  )} />
+)
+
 function App() {
   const [isLoggin,setIsLoggin] = useState(false)
-
-  useEffect(()=>{
-    if (localStorage.getItem('token')) {
-      setIsLoggin(true)
-      console.log(isLoggin)
-    }
-  })
   return (
     <>
     <Router>
       <Switch>
+        {/* <SecureRoute path='/login' component={LoginPage} /> */}
         <Route path='/login' component={LoginPage}/>
-        <Route path="/details/page/:id" component={DetailPage}/>
+        <SecureRoute path="/details/page/:id" component={DetailPage}/>
         <Route path='/register' component={RegisterPage}/>
-        <Route path='/' exact component={HomePage}/>
-        <Route path='/home' exact component={LandingPage}/>
-        <Route path='/search' exact component={SearchPage}/>
+        <SecureRoute path='/' exact component={HomePage}/>
+        <SecureRoute path='/home' exact component={LandingPage}/>
+        <SecureRoute path='/search' exact component={SearchPage}/>
         {/* <Route exact path="/redirect">
             {isLoggin ? <SearchPage/> : <Redirect to="/dashboard" />}
         </Route> */}

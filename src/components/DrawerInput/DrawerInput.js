@@ -154,7 +154,6 @@ class DrawerInput extends Component {
         }
       }).then(
         (res)=>{
-          console.log(res)
           openNotificationWithIcon('success','Success',res.data.msg)
           this.setState({
             visible : false
@@ -162,7 +161,7 @@ class DrawerInput extends Component {
         }
       ).catch(
         (err)=>{
-          openNotificationWithIcon('error','Error',err.response)
+          openNotificationWithIcon('error','Error',err.response.data.msg)
         }
       ).finally(
       )

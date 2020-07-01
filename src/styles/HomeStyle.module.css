@@ -2,9 +2,14 @@
     background-color: #F5F6FA;
 }
     .image{
+        padding: 10px 5px 10px 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         height: 100px;
         width: 200px;
-        background-color: yellow;
+        margin: auto;
     }
     .cardProfile{
         font-family: Poppins;
@@ -12,6 +17,10 @@
         background-color: white;
         min-height: 100px;
         max-height: 200px;
+        width: 100%;
+    }
+    .image img{
+        height: 100%;
         width: 100%;
     }
         .detailUser{
