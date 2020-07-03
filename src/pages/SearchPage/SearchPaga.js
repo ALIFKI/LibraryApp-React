@@ -197,8 +197,8 @@ class SearchPage extends Component {
                                     <div style={{width:'10%',padding : '0px 5px'}}>
                                         <label>Sort</label>
                                         <Select onChange={this.handleSortOnChange} optionFilterProp="children" defaultValue='0' style={{paddingLeft: '5px'}} >
-                                        <Option value='0'>Asc</Option>
-                                        <Option value='1'>Desc</Option>
+                                        <Option value='0'>A-Z</Option>
+                                        <Option value='1'>Z-A</Option>
 
                                         </Select>
                                     </div>

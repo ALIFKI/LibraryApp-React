@@ -64,6 +64,9 @@ class LoginPage extends Component {
         },
       });
     };
+    componentDidMount(){
+
+    }
     render(){
         return(
             <Container fluid={true} className={`h-100`}>

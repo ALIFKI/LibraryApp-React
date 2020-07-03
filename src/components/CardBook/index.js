@@ -17,7 +17,7 @@ class CardBook extends Component {
                     <img src={`http://localhost:3000/uploads/${this.props.data.image}`} alt=""/>
                         <div className={`${Style.block}`} onClick={(e)=>{this.props.history.push('/details/page/'+this.props.data.id)}}>
                             <div className={`${Style.blockContent}`}>
-                                <h3> {this.props.data.title.substring(0,20)} </h3>
+                                <h5> {this.props.data.title.substring(0,20)} </h5>
                                 <span dangerouslySetInnerHTML={this.rawMarkup()} />
                             </div>
                         </div> 

@@ -87,8 +87,8 @@ class DrawerApp extends Component {
             </div>
           </div>
           <div className={`d-flex flex-column justify-content-center p-2 pt-4 ${Style.menuList}`}>
-          <p>Explore</p>
-          <p>Explore</p>
+          {/* <p>Explore</p>
+          <p>Explore</p> */}
           <p onClick={this.handleLogout}>Logout</p>
           </div>
         </Drawer>

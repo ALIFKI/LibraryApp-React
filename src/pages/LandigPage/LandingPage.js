@@ -5,6 +5,7 @@ import Style from './LandingPageStyle.module.css'
 import CarouselLanding from '../../components/Carousel/index'
 import CardBook from '../../components/CardBook'
 import Axios from 'axios'
+
 export default class LandingPage extends Component {
     constructor(props){
         super(props)
@@ -64,7 +65,7 @@ export default class LandingPage extends Component {
                     <Jumbotron fluid style={{backgroundColor:'white'}}>
                         <div className={Style.jumbotron}>
                             <h2>Dont Stop learning because life dont stop teaching</h2>
-                        <p className={`lead ${Style.textJumbotron}`}>This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                        <p className={`lead ${Style.textJumbotron}`}>Book is a World than you can touch it and library is the universe</p>
                         </div>
                         <div className={`d-flex flex-row justify-content-center align-items-center ${Style.carousel}`}>
                             <CarouselLanding history={this.props.history}/>

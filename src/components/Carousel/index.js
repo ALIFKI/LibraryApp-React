@@ -37,7 +37,7 @@ export default class CarouselLanding extends Component {
     render() {
         const settings = {
             dots: true,
-            autoplay: false,
+            autoplay: true,
             infinite: true,
             slidesToShow: 1,
             slidesToScroll: 1,

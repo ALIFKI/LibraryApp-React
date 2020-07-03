@@ -13,7 +13,8 @@ class DetailPage extends Component{
     constructor(props){
         super(props)
         this.state = {
-            book : {}
+            book : {},
+            status : ''
         }
     }
     getData = () =>{
@@ -26,7 +27,8 @@ class DetailPage extends Component{
         }).then((res)=>{
             console.log(res)
             this.setState({
-                book : res.data.data
+                book : res.data.data,
+                status : res.data.data.status
             })
         }).catch((err)=>{
             console.log(err)
@@ -47,6 +49,9 @@ class DetailPage extends Component{
             }
         }).then((res)=>{
             console.log(res.data.msg)
+            this.setState({
+                status : 'Unavailable'
+            })
             openNotificationWithIcon('success','Borrow Success!!',res.data.msg)
         }).catch((err)=>{
             console.log(err)
@@ -64,7 +69,7 @@ class DetailPage extends Component{
 
     render() {
         let button 
-        if (this.state.book.status == 'Available') {
+        if (this.state.status == 'Available') {
             button = <Button type="primary" onClick={this.handleBook}>Borrow</Button>
         }
         else{

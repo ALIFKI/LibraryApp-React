@@ -32,8 +32,8 @@ class RegisterPage extends Component {
     }).then(
         (res)=>{
             console.log(res)
-              openNotificationWithIcon('success',res.data.data.msg,'Silahkan Login')
-              this.props.history.push('/home')
+              openNotificationWithIcon('success',"Success!",'Silahkan Login')
+              this.props.history.push('/login')
         }
     )
     .catch(

@@ -31,7 +31,7 @@ class HomePage extends Component {
              headers : {
                  Authorization : localStorage.getItem('token')
              },
-             url : 'http://localhost:3000/api/books?search=&page=1&limit=10&sort=0&by=title&order=genre'
+             url : 'http://localhost:3000/api/books?search=&page=1&limit=100&sort=0&by=title&order=created_at'
          }).then(
              (res)=>{
                  console.log(res.data)

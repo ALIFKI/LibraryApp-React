@@ -27,7 +27,7 @@ const SecureRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
   Auth.getLog() == true
       ? <Component {...props} />
-      : <Redirect to='/register' />
+      : <Redirect to='/login' />
   )} />
 )
 
