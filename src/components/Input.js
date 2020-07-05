@@ -13,7 +13,6 @@ class InputLogin extends Component {
         this.setState({
             data : this.props.value
         })
-        console.log(this.state)
     }
     componentDidMount(){
 
@@ -24,7 +23,7 @@ class InputLogin extends Component {
             input = <input type={this.props.type} required={this.props.required ? 'required' : ''} onChange={(e)=>{this.setState({image : e.target.files});console.log('res')}} className={InputStyle.input}/>
         }
         else{
-            input = <input type={this.props.type} required={this.props.required ? 'required' : ''} onChange={(e)=>{this.setState({data : e.target.value});console.log(this.state)}} className={InputStyle.input} value={this.state.data}/>
+            input = <input type={this.props.type} required={this.props.required ? 'required' : ''} onChange={(e)=>{this.setState({data : e.target.value})}} className={InputStyle.input} value={this.state.data}/>
         }
         return(
             

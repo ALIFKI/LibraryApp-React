@@ -8,6 +8,9 @@ import SliderComponent from  '../components/Carousel'
 import CardBook from '../components/Card';
 import axios from 'axios';
 import { Divider } from 'antd';
+import {connect} from 'react-redux'
+
+
 class HomePage extends Component {
     constructor(props){
         super(props)
@@ -18,7 +21,7 @@ class HomePage extends Component {
             password : ''
 
         }
-        console.log(props)
+        console.log(this.props.auth)
     }
     componentWillMount(){
         this.setState({
@@ -29,7 +32,7 @@ class HomePage extends Component {
          axios({
              method: 'GET',
              headers : {
-                 Authorization : localStorage.getItem('token')
+                 Authorization : this.props.auth.data.token
              },
              url : 'http://localhost:3000/api/books?search=&page=1&limit=100&sort=0&by=title&order=created_at'
          }).then(
@@ -70,7 +73,7 @@ class HomePage extends Component {
                                 <img src='./admin.svg'/>
                             </div>
                             <div className={`${Style.detailUser}`}>
-                                <p>Admin : {this.state.user.name}</p>
+                                <p>Admin :</p>
                             </div>
                         </div>
                     </div>
@@ -93,5 +96,8 @@ class HomePage extends Component {
         )
     }
 }
+const mapStateToProps = state => ({
+    auth : state.auth
+})
 
-export default HomePage
+export default connect(mapStateToProps)(HomePage)

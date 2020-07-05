@@ -83,7 +83,7 @@ class DrawerApp extends Component {
             <Avatar size={140} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
             </div>
             <div className={`name m-auto ${Style.name}`}>
-              <h5> {this.state.user.name} </h5>
+              <h5> Username </h5>
             </div>
           </div>
           <div className={`d-flex flex-column justify-content-center p-2 pt-4 ${Style.menuList}`}>

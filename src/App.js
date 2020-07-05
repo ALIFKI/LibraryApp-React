@@ -15,7 +15,7 @@ const Auth = {
       this.isLogin = false
   },
   getLog(){
-    if (localStorage.getItem('token')) {
+    if (true) {
 
       this.isLogin = true
     }

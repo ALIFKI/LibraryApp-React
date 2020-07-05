@@ -5,7 +5,9 @@ import { Link, Redirect } from 'react-router-dom'
 import Logo from '../images/bookshelf.png'
 import { notification } from 'antd';
 import InputLogin from '../components/Input';
-import axios from 'axios'
+import { login } from '../redux/actions/auth'
+// import axios from 'axios';
+import {connect} from 'react-redux';
 
 class LoginPage extends Component {
     constructor(props,refs){
@@ -23,36 +25,44 @@ class LoginPage extends Component {
         isLoading : true
       })
       event.preventDefault();
-      axios({
-          method: 'POST',
-          url : 'http://localhost:3000/api/users/login',
-          data : {
-              email : this.textInput.current.state.data,
-              password : this.passwordInput.current.state.data
-          }
-      }).then(
-          (res)=>{
-              localStorage.setItem('token',res.data.data[0].token)
-              localStorage.setItem('refreshToken',res.data.data[0].refreshToken)
-              localStorage.setItem('userData',JSON.stringify(res.data.data[0]))
-              if(res.data.data[0].role == 1){
-                this.props.history.push('/dashboard')
-              }
-              else{
-                this.props.history.push('/home')
-              }
+      const data = {
+        username : this.textInput.current.state.data,
+        password : this.passwordInput.current.state.data
+      }
+      // console.log(data)
+      this.props.login(data).then(()=>{
+        this.props.history.push('/dashboard')
+      })
+      // axios({
+      //     method: 'POST',
+      //     url : 'http://localhost:3000/api/users/login',
+      //     data : {
+      //         email : this.textInput.current.state.data,
+      //         password : this.passwordInput.current.state.data
+      //     }
+      // }).then(
+      //     (res)=>{
+      //         localStorage.setItem('token',res.data.data[0].token)
+      //         localStorage.setItem('refreshToken',res.data.data[0].refreshToken)
+      //         localStorage.setItem('userData',JSON.stringify(res.data.data[0]))
+      //         if(res.data.data[0].role == 1){
+      //           this.props.history.push('/dashboard')
+      //         }
+      //         else{
+      //           this.props.history.push('/home')
+      //         }
                 
-          }
-      )
-      .catch(
-          (err)=>{
-              console.log(err.response.data.msg)
-              this.openNotification(err.response.data.msg,'Error')
-          }
-      )
-      .finally(
-        console.log('detail')
-      )
+      //     }
+      // )
+      // .catch(
+      //     (err)=>{
+      //         console.log(err.response.data.msg)
+      //         this.openNotification(err.response.data.msg,'Error')
+      //     }
+      // )
+      // .finally(
+      //   console.log('detail')
+      // )
  }
     openNotification = (msg,title) => {
       notification.open({
@@ -68,8 +78,9 @@ class LoginPage extends Component {
 
     }
     render(){
+      // console.log(this.props.auth)
         return(
-            <Container fluid={true} className={`h-100`}>
+            <Container fluid={true}>
               <Row>
                 <Col md='7' className={`p-0 ${Style.remove}`}>
                   <div className={`d-flex flex-column w-100 h-100`}>
@@ -121,5 +132,12 @@ class LoginPage extends Component {
         )
 }
 }
+const mapStateToProps = (state)=>(
+{
+  auth : state.auth
+}
+)
 
-export default LoginPage
+const mapDispatchToProps = {login}
+
+export default connect(mapStateToProps,mapDispatchToProps)(LoginPage)
