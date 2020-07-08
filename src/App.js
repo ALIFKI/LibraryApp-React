@@ -9,6 +9,7 @@ import DetailPage from './pages/DetailPage';
 import LandingPage from './pages/LandigPage/LandingPage'
 import SearchPage from './pages/SearchPage/SearchPaga';
 import {connect} from 'react-redux';
+import GenrePage from './pages/GenrePage';
 
 const Auth = {
   isLogin:false,
@@ -44,6 +45,7 @@ function App(props) {
         <SecureRoute path="/details/page/:id" component={DetailPage} login='da'/>
         <Route path='/register' component={RegisterPage}/>
         <SecureRoute path='/dashboard' exact component={HomePage}/>
+        <SecureRoute path='/genre' exact component={GenrePage}/>
         <SecureRoute path='/home' exact component={LandingPage}/>
         <SecureRoute path='/search' exact component={SearchPage}/>
         {/* <Route exact path="/redirect">

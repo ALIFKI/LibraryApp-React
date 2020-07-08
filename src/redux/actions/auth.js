@@ -6,7 +6,7 @@ export const login = data => {
         payload :
         axios({
             method: 'POST',
-            url : 'http://localhost:3000/api/users/login',
+            url : `${process.env.REACT_APP_URL_API}api/users/login`,
             data : {
                 email : data.username,
                 password : data.password
@@ -27,7 +27,7 @@ export const register = data =>{
         payload : 
         axios({
             method: 'POST',
-            url : 'http://localhost:3000/api/users/registers',
+            url : `${process.env.REACT_APP_URL_API}api/users/registers`,
             data : {
                 name : data.name,
                 email : data.email,

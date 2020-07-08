@@ -15,8 +15,8 @@ class SideBar extends Component {
         console.log(this.props)
     }
 
-    handleOnClick=()=>{
-        this.props.history.push('/search')
+    handleOnClick=(url)=>()=>{
+        this.props.history.push(`/${url}`)
     }
     handleLogout=()=>{
         // localStorage.clear();
@@ -31,16 +31,16 @@ class SideBar extends Component {
                 </NavbarBrand>
                 <Divider></Divider>
                 <div className={'d-flex flex-column pr-0 mr-0 pl-2'}>
-                    <div className={`p-2 d-flex align-items-start ${Style.menuList} ${Style.active}`}>
-                        <p className={`ml-2 m-0`}>Lis Book</p>
+                    <div className={`p-2 d-flex align-items-start ${Style.menuList} ${this.props.history.location.pathname === '/dashboard'? Style.active : ''}`} onClick={this.handleOnClick('dashboard')}>
+                        <p className={`ml-2 m-0`}>List Book</p>
                     </div>
-                    <div className={`p-2 d-flex align-items-start ${Style.menuList}`}>
+                    <div className={`p-2 d-flex align-items-start ${Style.menuList} ${this.props.history.location.pathname === '/genre'? Style.active : ''}`} onClick={this.handleOnClick('genre')}>
                         <p className={`m-auto  ml-2`}>Manage Genre</p>
                     </div>
                     <div className={`p-2 d-flex align-items-start ${Style.menuList}`}>
                         <p className={`m-auto  ml-2`}>Mange Author</p>
                     </div>
-                    <div className={`p-2 d-flex align-items-start ${Style.menuList}`} onClick={this.handleOnClick}>
+                    <div className={`p-2 d-flex align-items-start ${Style.menuList}`} onClick={this.handleOnClick('search')}>
                         <p className={`m-auto  ml-2`}><SearchOutlined/>Search</p>
                     </div>
                     <div className={`p-2 d-flex align-items-start ${Style.menuList}`} onClick={this.handleLogout}>
