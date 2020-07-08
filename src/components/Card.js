@@ -1,16 +1,17 @@
 import React,{ Component } from 'react'
-import { Card } from 'antd'
+import { Card,Popconfirm } from 'antd'
 import { EditOutlined,DeleteOutlined,LoadingOutlined } from '@ant-design/icons'
 import Style from '../styles/Card/CardStyle.module.css'
 import openNotificationWithIcon from './Notif'
 import DrawerEdit from '../components/DrawerEdit/DrawerEdit';
 import Axios from 'axios'
+import { connect } from 'react-redux'
+import { deleteBook } from '../redux/actions/admin'
+
 class CardBook extends Component {
     constructor(props){
         super(props)
         this.state ={
-            title : 'Ubur Ubur Lembur',
-            desc : 'Lorem Ipsum',
             deleteLoading : false,
             visible : false
         }
@@ -19,25 +20,44 @@ class CardBook extends Component {
     handleslice = (msg) =>{
         this.props.onDelete(this.props.i)
     }
+    cancel = () =>{
+
+    }
+    confirm = () =>{
+
+    }
     //deleteBook
     handleOnDelete = (id)=>()=>{
-        this.setState({
-          deleteLoading : true
-        })
-        Axios({
-            method : 'DELETE',
-            url : 'http://localhost:3000/api/books/'+id,
-            headers : {
-                Authorization : localStorage.getItem('token')
+        let data = {
+            id : id,
+            token : this.props.auth.auth.token,
+            index : this.props.i
+        }
+        this.props.deleteBook(data).then((res)=>{
+            if(res.value.data.success){
+                openNotificationWithIcon('success','success',res.value.data.msg)
             }
-        }).then(
-            (res)=>{
-                openNotificationWithIcon('success','success',res.data.msg)
-        }).catch((err)=>{
-            console.log(err)
-        }).finally(     
-            this.props.onDelete(this.props.i)
-        )
+            else{
+                openNotificationWithIcon('error','error',res.value.data.msg)
+            }
+        })
+        // this.setState({
+        //   deleteLoading : true
+        // })
+        // axios({
+        //     method : 'DELETE',
+        //     url : 'http://localhost:3000/api/books/'+id,
+        //     headers : {
+        //         Authorization : localStorage.getItem('token')
+        //     }
+        // }).then(
+        //     (res)=>{
+        //         openNotificationWithIcon('success','success',res.data.msg)
+        // }).catch((err)=>{
+        //     console.log(err)
+        // }).finally(     
+        //     this.props.onDelete(this.props.i)
+        // )
       }
     render() {
         const { Meta } = Card;
@@ -54,14 +74,26 @@ class CardBook extends Component {
                 <div className={`${Style.float} ${Style.edit}`} onClick={(e)=>{this.setState({visible : true})}}>
                     <DrawerEdit visible={this.state.visible} id={this.props.data.id}/>
                 </div>
-                <div className={`${Style.float} ${Style.delete}`} onClick={this.handleOnDelete(this.props.data.id)}>
+                <Popconfirm
+                    title="Are You sure to delete This ?"
+                    onConfirm={this.handleOnDelete(this.props.data.id)}
+                    onCancel={this.cancel}
+                    okText="Yes"
+                    cancelText="No"
+                >
+                <div className={`${Style.float} ${Style.delete}`} >
                     {this.state.deleteLoading? <LoadingOutlined/> : <DeleteOutlined/>}
                 </div>
+                </Popconfirm>
             <Meta title={this.props.data.title} description={this.props.data.desc} />
           </Card>
           </div>
         )
     }
 }
-
-export default CardBook
+const mapStateToProps = state =>({
+    auth : state.auth,
+    admin : state.admin
+})
+const mapDispatchToProps = { deleteBook }
+export default connect(mapStateToProps,mapDispatchToProps)(CardBook)

@@ -5,12 +5,14 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Style from '../styles/Carousel/CarouselStyle.module.css'
 import Axios from 'axios';
+import { connect } from 'react-redux';
 class SliderComponent extends Component {
     constructor(props) {
-        super()
+        super(props)
         this.state ={
             book : {}
         }
+        console.log(this.props.home)
     }
     getData = ()=>{
         Axios({
@@ -54,5 +56,7 @@ class SliderComponent extends Component {
         )
     }
 } 
-
-export default SliderComponent
+const mapStateToProps = state =>({
+    carousel : state.home
+})
+export default connect(mapStateToProps)(SliderComponent)

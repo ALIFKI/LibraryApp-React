@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router,Switch,Route,Redirect } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage'
 import DetailPage from './pages/DetailPage';
 import LandingPage from './pages/LandigPage/LandingPage'
 import SearchPage from './pages/SearchPage/SearchPaga';
+import {connect} from 'react-redux';
 
 const Auth = {
   isLogin:false,
@@ -22,24 +23,25 @@ const Auth = {
       return this.isLogin
   }
 }
-
 const SecureRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
+  <Route {...rest} render={
+    (props) => (
   Auth.getLog() == true
       ? <Component {...props} />
       : <Redirect to='/login' />
-  )} />
+  )
+} />
 )
 
-function App() {
-  const [isLoggin,setIsLoggin] = useState(false)
+function App(props) {
+
   return (
     <>
     <Router>
       <Switch>
         {/* <SecureRoute path='/login' component={LoginPage} /> */}
         <Route path='/login' component={LoginPage}/>
-        <SecureRoute path="/details/page/:id" component={DetailPage}/>
+        <SecureRoute path="/details/page/:id" component={DetailPage} login='da'/>
         <Route path='/register' component={RegisterPage}/>
         <SecureRoute path='/dashboard' exact component={HomePage}/>
         <SecureRoute path='/home' exact component={LandingPage}/>
@@ -52,5 +54,7 @@ function App() {
     </>
   );
 }
-
-export default App;
+const mapStateToProps = state =>({
+  user : state.auth 
+})
+export default connect(mapStateToProps)(App);

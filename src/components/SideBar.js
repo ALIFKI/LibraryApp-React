@@ -5,7 +5,9 @@ import {
 } from 'reactstrap';
 import {Divider, Drawer} from 'antd';
 import DrawerInput from '../components/DrawerInput/DrawerInput'
-import {SearchOutlined,LogoutOutlined} from '@ant-design/icons'
+import {SearchOutlined,LogoutOutlined} from '@ant-design/icons';
+import { logout } from '../redux/actions/auth' 
+import {connect} from 'react-redux';
 
 class SideBar extends Component {
     constructor(props){
@@ -17,7 +19,8 @@ class SideBar extends Component {
         this.props.history.push('/search')
     }
     handleLogout=()=>{
-        localStorage.clear();
+        // localStorage.clear();
+        this.props.logout()
         this.props.history.push('/login')
       }
     render() {
@@ -49,5 +52,10 @@ class SideBar extends Component {
         )
     }
 }
-
-export default SideBar
+const mapStateToProps = (state)=>(
+    {
+      auth : state.auth
+    }
+    )
+const mapDispatchToProps = {logout}
+export default connect(mapStateToProps,mapDispatchToProps)(SideBar)

@@ -14,13 +14,23 @@ class InputLogin extends Component {
             data : this.props.value
         })
     }
+    reset = ()=>{
+            this.setState({
+                data : ''
+            })
+    }
+    resetImage = ()=>{
+        this.setState({
+            image : []
+        })
+    }
     componentDidMount(){
 
     }
     render(){
         let input
         if(this.props.type === 'file'){
-            input = <input type={this.props.type} required={this.props.required ? 'required' : ''} onChange={(e)=>{this.setState({image : e.target.files});console.log('res')}} className={InputStyle.input}/>
+            input = <input type={this.props.type} required={this.props.required ? 'required' : ''} onChange={(e)=>{this.setState({image : e.target.files});}} className={InputStyle.input}/>
         }
         else{
             input = <input type={this.props.type} required={this.props.required ? 'required' : ''} onChange={(e)=>{this.setState({data : e.target.value})}} className={InputStyle.input} value={this.state.data}/>

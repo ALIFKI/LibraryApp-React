@@ -9,7 +9,8 @@ EditOutlined
 import { Editor } from '@tinymce/tinymce-react';
 import Axios from 'axios';
 import openNotificationWithIcon from '../Notif' 
-
+import { connect } from 'react-redux';
+import { editBook,getBook } from '../../redux/actions/admin';
 const { Option } = Select;
 
 class DrawerEdit extends Component {
@@ -45,7 +46,7 @@ class DrawerEdit extends Component {
       Axios({
         method : 'GET',
         headers: {
-          Authorization : localStorage.getItem('token')
+          Authorization : this.props.auth.auth.token
         },
         url : `http://localhost:3000/api/books/${this.props.id}`
       }).then((res)=>{
@@ -56,9 +57,9 @@ class DrawerEdit extends Component {
           content : res.data.data.description,
           status : res.data.data.status
         })
-        console.log(res)
+        // console.log(res)
       }).catch((err)=>{
-        console.log(err)
+        // console.log(err)
       })
     }
 
@@ -67,7 +68,7 @@ class DrawerEdit extends Component {
         method : 'GET',
         url : 'http://localhost:3000/api/authors?search=&limit=200&page=1&sort=0&by=author',
         headers : {
-          Authorization : localStorage.getItem('token')
+          Authorization : this.props.auth.auth.token
       },
       }).then((res)=>{
         this.setState({
@@ -77,7 +78,7 @@ class DrawerEdit extends Component {
           }
         })
       }).catch((err)=>{
-        console.log(err)
+        // console.log(err)
       }).finally(
       )
     }
@@ -86,7 +87,7 @@ class DrawerEdit extends Component {
         method : 'GET',
         url : 'http://localhost:3000/api/genres?search=&page=1&limit=10&sort=0&by=genre',
         headers : {
-          Authorization : localStorage.getItem('token')
+          Authorization : this.props.auth.auth.token
       },
       }).then((res)=>{
         this.setState({
@@ -96,20 +97,10 @@ class DrawerEdit extends Component {
           }
         })
       }).catch((err)=>{
-        console.log(err)
+        // console.log(err)
       }).finally(
       )
     }
-    openNotification = () => {
-        notification.open({
-          message: 'helo',
-          description:
-            'msg',
-          onClick: () => {
-            console.log('Notification Clicked!');
-          },
-        });
-      };
     showDrawer = () => {
       this.setState({
         visible: true,
@@ -158,7 +149,7 @@ class DrawerEdit extends Component {
       event.preventDefault();
       const formData = new FormData()
       if (this.image.current.state.image[0] == undefined) {
-        console.log('No image')
+        // console.log('No image')
       }
       else{
         formData.append('image',this.image.current.state.image[0]);
@@ -168,27 +159,43 @@ class DrawerEdit extends Component {
       formData.append('id_author',this.state.author);
       formData.append('description',this.state.content);
       formData.append('status',this.state.status)
-      Axios({
-        method : 'PUT',
-        url : `http://localhost:3000/api/books/${this.props.id}`,
-        data : formData,
-        headers : {
-          'Content-Type' : 'multipart/form-data',
-          Authorization : localStorage.getItem('token')
-        }
-      }).then(
-        (res)=>{
-          openNotificationWithIcon('success','Success',res.data.msg)
+
+      let data = {
+        id : this.props.id,
+        formData : formData,
+        token : this.props.auth.auth.token
+      }
+      this.props.editBook(data).then((res)=>{
+        console.log(res.value)
+        openNotificationWithIcon('success','Success!',res.value.data.msg)
           this.setState({
             visible : false
           })
-        }
-      ).catch(
-        (err)=>{
-          openNotificationWithIcon('error','Error',err.response.data.msg)
-        }
-      ).finally(
-      )
+          this.props.getBook(this.props.auth.auth.token)
+      }).catch((err)=>{
+        console.log(err.response)
+      })
+      // Axios({
+      //   method : 'PUT',
+      //   url : `http://localhost:3000/api/books/${this.props.id}`,
+      //   data : formData,
+      //   headers : {
+      //     'Content-Type' : 'multipart/form-data',
+      //     Authorization : localStorage.getItem('token')
+      //   }
+      // }).then(
+      //   (res)=>{
+      //     openNotificationWithIcon('success','Success',res.data.msg)
+      //     this.setState({
+      //       visible : false
+      //     })
+      //   }
+      // ).catch(
+      //   (err)=>{
+      //     openNotificationWithIcon('error','Error',err.response.data.msg)
+      //   }
+      // ).finally(
+      // )
 
     }
 
@@ -209,7 +216,7 @@ class DrawerEdit extends Component {
           // maskStyle={{opacity:0,backgroundColor: 'rgba(0, 0, 0, 0.0)'}}
         >
             <div className="d-flex flex-column justify-content-center align-items-center">
-                <h3 onClick={this.openNotification}>Edit Book</h3>
+                <h3>Edit Book</h3>
                 <Form onSubmit={this.handleOnsubmit}>
                 <InputLogin name={'title'} required={true} placeholder={'Title Book'} type={'text'} value={this.state.book.title} ref={this.textInput}/>
                 <label>Descriptions</label>
@@ -277,5 +284,13 @@ class DrawerEdit extends Component {
     );
   }
 }
+const mapStateToProps = state=>({
+  auth : state.auth,
+  book : state.book
+})
 
-export default DrawerEdit
+const mapDispatchToProps = {editBook,getBook}
+
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(DrawerEdit)

@@ -1,10 +1,17 @@
-import { Drawer, Space,Avatar } from 'antd';
+import { Drawer, Badge ,Space,Avatar,Popover,Button } from 'antd';
 import React, { Component } from 'react'
 // import { NavbarToggler } from 'reactstrap';
 import Style from "../styles/DrawerStyle.module.css";
+import Axios from 'axios'
 import {
-  MenuOutlined
+  MenuOutlined,
+  BookOutlined,
+  ClockCircleOutlined
 } from '@ant-design/icons';
+import { connect } from 'react-redux';
+import { logout } from '../redux/actions/auth';
+
+
 class DrawerApp extends Component {
     constructor(props){
         super(props)
@@ -12,7 +19,8 @@ class DrawerApp extends Component {
           visible: false, 
           placement: 'right',
           active : '',
-          user : {}
+          user : {},
+          history : []
        };
        console.log(props)
     }
@@ -23,7 +31,26 @@ class DrawerApp extends Component {
       active : 'is-active'
     });
   };
-
+  //get History 
+  handleHistory = ()=>{
+      Axios({
+          method : 'GET',
+          url : 'http://localhost:3000/api/transactions/user?search=&limit=10&page=1&sort=0&by=name&order=name',
+          headers : {
+            Authorization : localStorage.getItem('token')
+          },
+          data : {
+              id : 18
+          }
+      }).then((res)=>{
+          console.log(res.data)
+          this.setState({
+              history : res.data.data
+          })
+      }).catch((err)=>{
+          console.log(err)
+      })
+  }
   onClose = () => {
     this.setState({
       visible: false,
@@ -38,7 +65,8 @@ class DrawerApp extends Component {
   };
 
   handleLogout=()=>{
-    localStorage.clear();
+    // localStorage.clear();
+    this.props.logout()
     this.props.history.push('/login')
   }
 
@@ -50,10 +78,26 @@ class DrawerApp extends Component {
 
   componentWillMount(){
     this.getUser()
+    this.handleHistory()
   }
 
   render() {
     const { placement, visible } = this.state;
+    const text = <span>History Books</span>;
+    const content = (
+      <div className={`${Style.popoverContent}`}>
+          <div className={`${Style.popoverList}`}>
+          {this.state.history.map((row,index)=>{
+            return <p key={index}><BookOutlined style={{paddingRight: '10px'}}/>
+            {row.title}
+            <Badge count={<ClockCircleOutlined style={{ color: '#f5222d' }} />}>
+            </Badge>
+            </p>    
+          })}
+          </div>
+        {/* <p>Content</p> */}
+      </div>
+    );
     return (
       <>
         <Space>
@@ -87,8 +131,9 @@ class DrawerApp extends Component {
             </div>
           </div>
           <div className={`d-flex flex-column justify-content-center p-2 pt-4 ${Style.menuList}`}>
-          {/* <p>Explore</p>
-          <p>Explore</p> */}
+            <Popover placement="rightTop" title={text} content={content} trigger="hover">
+                <p>History</p>
+            </Popover>
           <p onClick={this.handleLogout}>Logout</p>
           </div>
         </Drawer>
@@ -96,5 +141,9 @@ class DrawerApp extends Component {
     );
   }
 }
-
-export default DrawerApp
+const mapStateToProps = state=>({
+  auth : state.auth,
+  home : state.home
+})
+const mapDispatchToProps = {logout}
+export default connect(mapStateToProps,mapDispatchToProps)(DrawerApp)

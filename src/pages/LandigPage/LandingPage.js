@@ -5,48 +5,23 @@ import Style from './LandingPageStyle.module.css'
 import CarouselLanding from '../../components/Carousel/index'
 import CardBook from '../../components/CardBook'
 import Axios from 'axios'
+import { getGenre,getData } from '../../redux/actions/home'
+import { connect } from 'react-redux'
 
-export default class LandingPage extends Component {
+class LandingPage extends Component {
     constructor(props){
         super(props)
         this.state = {
             books : [
             ],
-            adventure : [],
         }
     }
 
     getData = ()=>{
-        Axios({
-            method : 'GET',
-            url : 'http://localhost:3000/api/books?search=&page=1&limit=100&sort=0&by=title&order=title',
-            headers: {
-                Authorization : localStorage.getItem('token'),
-            }
-        }).then((res)=>{
-            console.log(res)
-            this.setState({
-                books : res.data.data
-            })
-        }).catch((err)=>{
-            console.log(err)
-        })
+        this.props.getData(this.props.auth.auth.token)
     }
     getGenre = ()=>{
-        Axios({
-            method : 'GET',
-            url : 'http://localhost:3000/api/books?search=&page=1&limit=100&sort=1&by=title&order=title',
-            headers: {
-                Authorization : localStorage.getItem('token'),
-            }
-        }).then((res)=>{
-            console.log(res)
-            this.setState({
-                adventure : res.data.data
-            })
-        }).catch((err)=>{
-            console.log(err)
-        })
+        this.props.getGenre(this.props.auth.auth.token)
     }
     componentDidMount(){
         this.getData()
@@ -79,7 +54,7 @@ export default class LandingPage extends Component {
                             <h3>Classic</h3>
                         </div>
                         <div className={`${Style.cardWrapper}`}>
-                            {this.state.books.map((row)=>{
+                            {this.props.home.book.map((row)=>{
                                 return <CardBook key={row.id} data={row} history={this.props.history} l={this.props}/>
                             })}
                         </div>
@@ -91,7 +66,7 @@ export default class LandingPage extends Component {
                             <h3>Horor</h3>
                         </div>
                         <div className={`${Style.cardWrapper}`}>
-                            {this.state.adventure.map((row)=>{
+                            {this.props.home.adventure.map((row)=>{
                                 return <CardBook key={row.id} data={row} history={this.props.history} l={this.props}/>
                             })}
                         </div>
@@ -103,7 +78,7 @@ export default class LandingPage extends Component {
                             <h3>Adventure</h3>
                         </div>
                         <div className={`${Style.cardWrapper}`}>
-                            {this.state.books.map((row)=>{
+                            {this.props.home.book.map((row)=>{
                                 return <CardBook data={row} key={row.id} history={this.props.history} l={this.props}/>
                             })}
                         </div>
@@ -113,3 +88,12 @@ export default class LandingPage extends Component {
         )
     }
 }
+const mapStateToProps = state=>({
+    auth : state.auth,
+    home : state.home
+})
+const mapDispatchToProps = {
+    getGenre,
+    getData
+}
+export default connect(mapStateToProps,mapDispatchToProps)(LandingPage)

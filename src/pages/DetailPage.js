@@ -6,60 +6,85 @@ import Card from '../components/Card'
 import Axios from 'axios';
 import openNotificationWithIcon from '../components/Notif';
 import Moment from 'react-moment';
-// import 'moment-timezone';
-
-
+import { connect } from 'react-redux';
+import { getBookbyId, borrow } from '../redux/actions/book';
+// import 'moment-timezone'
 class DetailPage extends Component{
     constructor(props){
         super(props)
         this.state = {
             book : {},
-            status : ''
+            status : this.props.book.book.status
         }
     }
     getData = () =>{
-        Axios({
-            method : 'GET',
-            url : `http://localhost:3000/api/books/${this.props.match.params.id}`,
-            headers : {
-                Authorization : localStorage.getItem('token')
-            }
-        }).then((res)=>{
-            console.log(res)
+        let data = {
+            id : this.props.match.params.id,
+            token : this.props.auth.auth.token
+        }
+        this.props.getBookbyId(data).then((res)=>{
             this.setState({
-                book : res.data.data,
-                status : res.data.data.status
+                status : res.value.data.data.status
             })
         }).catch((err)=>{
-            console.log(err)
-        }).finally(
 
-        )
+        })
+        // Axios({
+        //     method : 'GET',
+        //     url : `http://localhost:3000/api/books/${this.props.match.params.id}`,
+        //     headers : {
+        //         Authorization : localStorage.getItem('token')
+        //     }
+        // }).then((res)=>{
+        //     console.log(res)
+        //     this.setState({
+        //         book : res.data.data,
+        //         status : res.data.data.status
+        //     })
+        // }).catch((err)=>{
+        //     console.log(err)
+        // }).finally(
+
+        // )
     }
     //handle borrow Books
     handleBook = ()=>{
-        Axios({
-            method : 'POST',
-            headers : {
-                Authorization : localStorage.getItem('token')
-            },
-            url : `http://localhost:3000/api/books/borrow/${this.props.match.params.id}`,
-            data : {
-                periode_of_time : 2
-            }
-        }).then((res)=>{
-            console.log(res.data.msg)
+        let data = {
+            token : this.props.auth.auth.token,
+            id : this.props.match.params.id
+        }
+        this.props.borrow(data).then((res)=>{
+            console.log(res.value)
             this.setState({
-                status : 'Unavailable'
+                status : 'Borrowed'
             })
-            openNotificationWithIcon('success','Borrow Success!!',res.data.msg)
+            openNotificationWithIcon('success','Borrow Success!!',res.value.data.msg)
         }).catch((err)=>{
             console.log(err)
+            openNotificationWithIcon('success','Error!',err.response.data.msg)
         })
+        // Axios({
+        //     method : 'POST',
+        //     headers : {
+        //         Authorization : localStorage.getItem('token')
+        //     },
+        //     url : `http://localhost:3000/api/books/borrow/${this.props.match.params.id}`,
+        //     data : {
+        //         periode_of_time : 2
+        //     }
+        // }).then((res)=>{
+        //     console.log(res.data.msg)
+        //     this.setState({
+        //         status : 'Unavailable'
+        //     })
+        //     openNotificationWithIcon('success','Borrow Success!!',res.data.msg)
+        // }).catch((err)=>{
+        //     console.log(err)
+        // })
     }
     //
     rawMarkup(){
-        var rawMarkup = this.state.book.description
+        var rawMarkup = this.props.book.book.description
         return { __html: rawMarkup };
     }
 
@@ -73,7 +98,7 @@ class DetailPage extends Component{
             button = <Button type="primary" onClick={this.handleBook}>Borrow</Button>
         }
         else{
-            button = <Button type="primary" onClick={this.handleBook} disabled>Borrow</Button>
+            button = <Button type="primary" onClick={this.handleBook} disabled>Borrowed</Button>
         }
         return (
             <>
@@ -87,16 +112,16 @@ class DetailPage extends Component{
                         <div className="col-md-8 col-sm-12">
                             <div className="d-flex flex-column justify-content-center">
                                 <div className={`${Style.coverImage}`}>
-                                    <img src={`http://localhost:3000/uploads/${this.state.book.image}`} alt="Nope"/>
+                                    <img src={`http://localhost:3000/uploads/${this.props.book.book.image}`} alt="Nope"/>
                                 </div>
                                 <div className={`${Style.detail}`}>
                                     <div className={`${Style.text} pt-3`}>
                                         <div className={`${Style.genre}`}>
                                             <h4>
-                                                <Badge variant="secondary">{this.state.book.genre}</Badge>
+                                                <Badge variant="secondary">{this.props.book.book.genre}</Badge>
                                             </h4>
                                         </div>
-                                            <h2> {this.state.book.title} </h2>
+                                            <h2> {this.props.book.book.title} </h2>
                                             <span dangerouslySetInnerHTML={this.rawMarkup()} />
                                     </div>
                                 </div>
@@ -106,7 +131,7 @@ class DetailPage extends Component{
                             <div className={`${Style.bookDetail} `}>
                                 <div className={`d-flex flex-column justify-content-center align-items-center`}>
                                     <div className={`${Style.cardBook}`}>
-                                        <img src={`http://localhost:3000/uploads/${this.state.book.image}`} alt='nope'/>
+                                        <img src={`http://localhost:3000/uploads/${this.props.book.book.image}`} alt='nope'/>
                                     </div>
                                     <div className="title">
                                         <h5>Title Book</h5>
@@ -114,9 +139,9 @@ class DetailPage extends Component{
                                 </div>
                                 <div className={`${Style.description}`}>
                                     <Descriptions title="Detail Book">
-                                        <Descriptions.Item label="Title">{this.state.book.title}</Descriptions.Item>
-                                        <Descriptions.Item label="Author">{this.state.book.author}</Descriptions.Item>
-                                        <Descriptions.Item label="Date"><Moment format="YYYY/MM/DD" date={this.state.book.created_at} /></Descriptions.Item>
+                                        <Descriptions.Item label="Title">{this.props.book.book.title}</Descriptions.Item>
+                                        <Descriptions.Item label="Author">{this.props.book.book.author}</Descriptions.Item>
+                                        <Descriptions.Item label="Date"><Moment format="YYYY/MM/DD" date={this.props.book.book.created_at} /></Descriptions.Item>
                                     </Descriptions>
                                 </div>
                                 <div className="d-flex flex-row justify-content-center align-items-center pb-3">
@@ -132,4 +157,12 @@ class DetailPage extends Component{
     }
 }
 
-export default DetailPage
+const mapStateToProps = state=>({
+    auth : state.auth,
+    book : state.book
+})
+const mapDispatchToProps = {
+    getBookbyId,
+    borrow
+}
+export default connect(mapStateToProps,mapDispatchToProps)(DetailPage)

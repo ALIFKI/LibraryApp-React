@@ -5,28 +5,19 @@ import 'slick-carousel/slick/slick-theme.css';
 import Style from './CarouselStyle.module.css'
 import {Button} from 'reactstrap'
 import Axios from 'axios';
-export default class CarouselLanding extends Component {
+import { connect } from 'react-redux';
+import {getCarousel} from '../../redux/actions/home'
+
+class CarouselLanding extends Component {
     constructor(props){
         super(props)
         this.state = {
             book : []
         }
+        console.log(props)
     }
     getData = ()=>{
-        Axios({
-            method : 'GET',
-            url : 'http://localhost:3000/api/books?search=&page=1&limit=3&sort=0&by=title&order=created_at',
-            headers: {
-                Authorization : localStorage.getItem('token'),
-            }
-        }).then((res)=>{
-            console.log(res)
-            this.setState({
-                book : res.data.data
-            })
-        }).catch((err)=>{
-            console.log(err)
-        })
+        this.props.getCarousel(this.props.auth.auth.token)
     }
     handleOnclick=(id)=>()=>{
         this.props.history.push('/details/page/'+id)
@@ -48,7 +39,7 @@ export default class CarouselLanding extends Component {
             <div className="container">
             <Slider {...settings}>
                 {
-                    this.state.book.map((row,index)=>{
+                    this.props.carousel.carousel.map((row,index)=>{
                         return <div className='slide-div d-flex flex-row justify-content-end' key={index}>
                         <div className={`${Style.cardBook}`}>
                             <img src={`http://localhost:3000/uploads/${row.image}`} alt="" />
@@ -63,24 +54,15 @@ export default class CarouselLanding extends Component {
                     </div>
                     })
                 }
-            {/* <div className='slide-div d-flex flex-row'>
-                <div className={`m-1 ${Style.title}`}>
-                    <h3 className={`m-2`}>Ubur-Ubur Lembur</h3>
-                </div>
-                <div className={`${Style.cardBook}`}>
-
-                </div>
-            </div>
-            <div className='slide-div d-flex flex-row'>
-                <div className={`m-1 ${Style.title}`}>
-                    <h3 className={`m-2`}>Ubur-Ubur Lembur</h3>
-                </div>
-                <div className={`${Style.cardBook}`}>
-
-                </div>
-            </div> */}
             </Slider>
           </div>
         )
     }
 }
+
+const mapStateToProps = state =>({
+    carousel : state.home,
+    auth : state.auth
+})
+const mapDispatchToProps = {getCarousel}
+export default connect(mapStateToProps,mapDispatchToProps)(CarouselLanding)

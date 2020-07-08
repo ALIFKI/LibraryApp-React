@@ -23,7 +23,7 @@ class SearchPage extends Component {
             totalPage : 1,
             total_data : 0,
             current : 1,
-            limit : 8,
+            limit : 10,
         }
     }
     onPaginate=()=>{
@@ -138,20 +138,20 @@ class SearchPage extends Component {
     }
     componentDidMount() {
         this.getUser()
-        document.addEventListener('scroll', this.handleScroll);
+        // document.addEventListener('scroll', this.handleScroll);
       }
-      handleScroll() {
-        const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
-        const body = document.body;
-        const html = document.documentElement;
-        const docHeight = Math.round(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-        const windowBottom = windowHeight + window.pageYOffset;
-        if (windowBottom >= docHeight) {
-            console.log('bottom')
-        } else {
+    //   handleScroll() {
+    //     const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+    //     const body = document.body;
+    //     const html = document.documentElement;
+    //     const docHeight = Math.round(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+    //     const windowBottom = windowHeight + window.pageYOffset;
+    //     if (windowBottom >= docHeight) {
+    //         console.log('bottom')
+    //     } else {
 
-        }
-    }
+    //     }
+    // }
     render() {
         let pagination;
         let Card;

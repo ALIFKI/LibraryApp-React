@@ -9,7 +9,7 @@ import CardBook from '../components/Card';
 import axios from 'axios';
 import { Divider } from 'antd';
 import {connect} from 'react-redux'
-
+import { getBook } from '../redux/actions/admin';
 
 class HomePage extends Component {
     constructor(props){
@@ -21,7 +21,7 @@ class HomePage extends Component {
             password : ''
 
         }
-        console.log(this.props.auth)
+        console.log(this.props)
     }
     componentWillMount(){
         this.setState({
@@ -29,31 +29,15 @@ class HomePage extends Component {
         })
     }
     getAll = ()=>{
-         axios({
-             method: 'GET',
-             headers : {
-                 Authorization : this.props.auth.data.token
-             },
-             url : 'http://localhost:3000/api/books?search=&page=1&limit=100&sort=0&by=title&order=created_at'
-         }).then(
-             (res)=>{
-                 console.log(res.data)
-                 this.setState({book : res.data.data})
-             }
-         )
-         .catch(
-             (err)=>{
-                 console.log(err.response.data)
-             }
-         )
+        this.props.getBook(this.props.auth.auth.token)
     }
     //sliceBook 
-    handleOnDelete = (id)=>()=>{
-        console.log('res')
-        var arr = [...this.state.book]
-        arr.splice(id, 1);
-        this.setState({book: arr});
-    }
+    // handleOnDelete = (id)=>()=>{
+    //     console.log('res')
+    //     var arr = [...this.state.book]
+    //     arr.splice(id, 1);
+    //     this.setState({book: arr});
+    // }
     componentDidMount(){
         this.getAll()
     }
@@ -81,12 +65,12 @@ class HomePage extends Component {
                 <Divider/>
                 <div className="row">
                     <div className="col-12">
-                        <h3 className='pl-5'>Books List</h3>
+                        <h3 className='pl-5'>List Books</h3>
                     </div>
                     <div className="col-md-12 d-flex flex-wrap justify-content-center align-items-center p-0">
                         {
-                            this.state.book.map((row,index)=>{
-                                return <CardBook i={index} key={row.id} data={row} history={this.props.history} onDelete={this.handleOnDelete}/>
+                            this.props.admin.books.map((row,index)=>{
+                                return <CardBook i={index} key={row.id} data={row} history={this.props.history} />
                             })
                         }
                     </div>
@@ -97,7 +81,8 @@ class HomePage extends Component {
     }
 }
 const mapStateToProps = state => ({
-    auth : state.auth
+    auth : state.auth,
+    admin : state.admin
 })
-
-export default connect(mapStateToProps)(HomePage)
+const mapDispatchToProps = {getBook}
+export default connect(mapStateToProps,mapDispatchToProps)(HomePage)

@@ -4,10 +4,10 @@ import Style from '../styles/RegisterStyle.module.css'
 import { Link } from 'react-router-dom'
 import Logo from '../images/bookshelf.png'
 import openNotificationWithIcon from '../components/Notif'
-import axios from 'axios'
 // import {notification } from 'antd';
 import InputLogin from '../components/Input';
-
+import {connect} from 'react-redux'
+import { register } from '../redux/actions/auth';
 class RegisterPage extends Component {
     constructor(props){
         super(props)
@@ -20,31 +20,42 @@ class RegisterPage extends Component {
     //Register
     handleRegister = (event)=>{
       event.preventDefault()
-      axios({
-        method: 'POST',
-        url : 'http://localhost:3000/api/users/registers',
-        data : {
+      let data = {
             name : this.textName.current.state.data,
             email : this.textEmail.current.state.data,
             password : this.textPassword.current.state.data,
-            role : 2
-        }
-    }).then(
-        (res)=>{
-            console.log(res)
-              openNotificationWithIcon('success',"Success!",'Silahkan Login')
-              this.props.history.push('/login')
-        }
-    )
-    .catch(
-        (err)=>{
-            console.log()
-            openNotificationWithIcon('error','Something Wrong',err.response.data.msg)
-        }
-    )
-    .finally(
-      console.log('detail')
-    )
+      }
+      this.props.register(data).then((res)=>{
+        openNotificationWithIcon('success',"Success!",'Silahkan Login')
+        this.props.history.push('/login')
+      }).catch((err)=>{
+        openNotificationWithIcon('error','Something Wrong',this.props.stateAuth.errorMsg)
+      })
+    //   axios({
+    //     method: 'POST',
+    //     url : 'http://localhost:3000/api/users/registers',
+    //     data : {
+    //         name : this.textName.current.state.data,
+    //         email : this.textEmail.current.state.data,
+    //         password : this.textPassword.current.state.data,
+    //         role : 2
+    //     }
+    // }).then(
+    //     (res)=>{
+    //         console.log(res)
+    //           openNotificationWithIcon('success',"Success!",'Silahkan Login')
+    //           this.props.history.push('/login')
+    //     }
+    // )
+    // .catch(
+    //     (err)=>{
+    //         console.log()
+    //         openNotificationWithIcon('error','Something Wrong',err.response.data.msg)
+    //     }
+    // )
+    // .finally(
+    //   console.log('detail')
+    // )
     }
 
     render() {
@@ -93,5 +104,10 @@ class RegisterPage extends Component {
         )
     }
 }
-
-export default RegisterPage
+//getState Redux
+const mapStateToProps = state =>(
+{  stateAuth : state.auth }
+)
+//register
+const mapDispatchToProps = {register}
+export default connect(mapStateToProps,mapDispatchToProps)(RegisterPage)

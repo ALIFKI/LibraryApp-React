@@ -27,7 +27,7 @@ class NavbarComponent extends Component {
                     <DropdownToggle nav caret>
                         All Kategori 
                     </DropdownToggle>
-                    <DropdownMenu right>
+                    {/* <DropdownMenu right>
                         <DropdownItem>
                         Option 1
                         </DropdownItem>
@@ -38,9 +38,9 @@ class NavbarComponent extends Component {
                         <DropdownItem>
                         Reset
                         </DropdownItem>
-                    </DropdownMenu>
+                    </DropdownMenu> */}
                     </UncontrolledDropdown>
-                    <UncontrolledDropdown nav inNavbar>
+                    {/* <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret>
                         All Times
                     </DropdownToggle>
@@ -56,7 +56,7 @@ class NavbarComponent extends Component {
                         Reset
                         </DropdownItem>
                     </DropdownMenu>
-                    </UncontrolledDropdown>
+                    </UncontrolledDropdown> */}
                 </Nav>
                 </Collapse>
         </Navbar>

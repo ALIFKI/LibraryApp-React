@@ -2,7 +2,9 @@ const initialState = {
     isLoading : false,
     isError : false,
     errorMsg : '' ,
-    data : {}
+    successMsg : '',
+    auth : {},
+    isLogin : false,
 }
 
 const auth = (state = initialState,action) =>{
@@ -14,6 +16,7 @@ const auth = (state = initialState,action) =>{
             isError : true
         }
         case "LOGIN_REJECTED": 
+        console.log(action.payload.data)
         return { 
             ...state,
             isLoading : false,
@@ -26,7 +29,36 @@ const auth = (state = initialState,action) =>{
             ...state,
             isLoading : false,
             isError : false,
-            data : action.payload.data.data[0]
+            isLogin : true,
+            auth : action.payload.data.data[0]
+        }
+        case "LOGOUT": 
+        return { 
+            ...state,
+            isLoading : false,
+            isError : false,
+            errorMsg : '' ,
+            auth : {}
+        }
+        case 'REGISTER_PENDING' :
+            console.log(action.payload) 
+        return {
+            ...state,
+            isLoading : true,
+            errorMsg : ''
+        }
+        case 'REGISTER_REJECTED' :
+        return {
+            ...state,
+            isLoading : true,
+            errorMsg : action.payload.response.data.msg
+        }
+        case 'REGISTER_FULFILLED' :
+            console.log(action.payload)
+        return {
+            ...state,
+            isLoading : true,
+            successMsg : action.payload.data.msg
         }
         default:
             return state

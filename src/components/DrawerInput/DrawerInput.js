@@ -1,15 +1,16 @@
-import { Drawer, Space,Avatar,Input,Select,Upload,notification } from 'antd';
+import { Drawer, Space,Input,Select,notification } from 'antd';
 import React,{ Component } from 'react'
 import { Form,Button } from 'reactstrap';
 import Style from "./DrawerInputStyle.module.css";
 import InputLogin from '../Input';
 import {
-PlusOutlined,UploadOutlined
+PlusOutlined
 } from '@ant-design/icons';
 import { Editor } from '@tinymce/tinymce-react';
 import Axios from 'axios';
 import openNotificationWithIcon from '../../components/Notif' 
-
+import { addBooks,getBook } from '../../redux/actions/admin';
+import { connect } from 'react-redux';
 const { Option } = Select;
 
 class DrawerInput extends Component {
@@ -53,9 +54,8 @@ class DrawerInput extends Component {
             author : res.data.data
           }
         })
-        console.log(this.state)
       }).catch((err)=>{
-        console.log(err)
+        // console.log(err)
       }).finally(
       )
     }
@@ -73,9 +73,9 @@ class DrawerInput extends Component {
             genre : res.data.data
           }
         })
-        console.log(this.state)
+        // console.log(this.state)
       }).catch((err)=>{
-        console.log(err)
+        // console.log(err)
       }).finally(
       )
     }
@@ -85,7 +85,7 @@ class DrawerInput extends Component {
           description:
             'msg',
           onClick: () => {
-            console.log('Notification Clicked!');
+            // console.log('Notification Clicked!');
           },
         });
       };
@@ -122,7 +122,6 @@ class DrawerInput extends Component {
     }
     //authorSelect
     handleAuthorOnChange = (e)=>{
-      console.log(e)
       this.setState({
         author : e
       })
@@ -136,7 +135,6 @@ class DrawerInput extends Component {
     //handel Form submit
     handleOnsubmit = (event) =>{
       event.preventDefault();
-      console.log(this.state)
       const formData = new FormData()
       formData.append('title',this.textInput.current.state.data);
       formData.append('image',this.image.current.state.image[0]);
@@ -144,27 +142,41 @@ class DrawerInput extends Component {
       formData.append('id_author',this.state.author);
       formData.append('description',this.state.content);
       formData.append('status',this.state.status)
-      Axios({
-        method : 'POST',
-        url : 'http://localhost:3000/api/books',
-        data : formData,
-        headers : {
-          'Content-Type' : 'multipart/form-data',
-          Authorization : localStorage.getItem('token')
-        }
-      }).then(
-        (res)=>{
-          openNotificationWithIcon('success','Success',res.data.msg)
+      this.props.addBooks(formData,this.props.auth.auth.token).then((res)=>{
           this.setState({
-            visible : false
+            visible : false,
+            genre : '',
+            author : '',
+            status : ''
           })
-        }
-      ).catch(
-        (err)=>{
+          this.textInput.current.reset()
+          this.image.current.resetImage()
+          openNotificationWithIcon('success','Success',res.value.data.msg)
+          this.props.getBook(this.props.auth.auth.token);
+      }).catch((err)=>{
           openNotificationWithIcon('error','Error',err.response.data.msg)
-        }
-      ).finally(
-      )
+      })
+      // Axios({
+      //   method : 'POST',
+      //   url : 'http://localhost:3000/api/books',
+      //   data : formData,
+      //   headers : {
+      //     'Content-Type' : 'multipart/form-data',
+      //     Authorization : localStorage.getItem('token')
+      //   }
+      // }).then(
+      //   (res)=>{
+      //     openNotificationWithIcon('success','Success',res.data.msg)
+      //     this.setState({
+      //       visible : false
+      //     })
+      //   }
+      // ).catch(
+      //   (err)=>{
+      //     openNotificationWithIcon('error','Error',err.response.data.msg)
+      //   }
+      // ).finally(
+      // )
 
     }
 
@@ -193,7 +205,7 @@ class DrawerInput extends Component {
                 <label>Descriptions</label>
                 <Editor
                     apiKey = '9p428y16wndt918ysp9mhdxaxxba0vn0ho2o7wzv3otznk5i'
-                    initialValue=''
+                    initialValue={this.state.content}
                     init={{
                     height: 200,
                     menubar: false,
@@ -211,7 +223,7 @@ class DrawerInput extends Component {
                 />
                     <Input.Group compact>
                         <label>Genre</label>
-                        <Select onChange={this.handleGenreOnChange} optionFilterProp="children" style={{width:'100%'}}>
+                        <Select onChange={this.handleGenreOnChange} optionFilterProp="children"  defaultValue={this.state.genre} style={{width:'100%'}}>
                           {this.state.data.genre.map((res)=>{
                             return <Option key={res.id_genre} value={res.id_genre}>{res.genre}</Option>
                           })}
@@ -219,7 +231,7 @@ class DrawerInput extends Component {
                     </Input.Group>
                     <Input.Group compact>
                         <label>Status</label>
-                        <Select onChange={this.handleStatusOnChange} optionFilterProp="children" style={{width:'100%'}}>
+                        <Select onChange={this.handleStatusOnChange} optionFilterProp="children" defaultValue={this.state.status} style={{width:'100%'}}>
                           <Option value='Available'>Available</Option>
                           <Option value='Unavailable'>Unavailable</Option>
                         </Select>
@@ -228,6 +240,7 @@ class DrawerInput extends Component {
                         <label>Author</label>
                         <Select
                           showSearch
+                          defaultValue={this.state.author}
                           style={{ width: '100%' }}
                           placeholder="Select a Author"
                           optionFilterProp="children"
@@ -255,4 +268,10 @@ class DrawerInput extends Component {
   }
 }
 
-export default DrawerInput
+const mapStateToProps = state =>({
+  auth : state.auth,
+})
+const mapDispatchToProps = {addBooks,getBook}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(DrawerInput)

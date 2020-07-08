@@ -8,7 +8,7 @@ import InputLogin from '../components/Input';
 import { login } from '../redux/actions/auth'
 // import axios from 'axios';
 import {connect} from 'react-redux';
-
+import openNotificationWithIcon from '../components/Notif'
 class LoginPage extends Component {
     constructor(props,refs){
         super(props,refs)
@@ -30,8 +30,21 @@ class LoginPage extends Component {
         password : this.passwordInput.current.state.data
       }
       // console.log(data)
-      this.props.login(data).then(()=>{
-        this.props.history.push('/dashboard')
+      this.props.login(data).then((res)=>{
+        localStorage.setItem('token',res.value.data.data[0].token)
+        localStorage.setItem('refreshToken',res.value.data.data[0].refreshToken)
+        localStorage.setItem('userData',JSON.stringify(res.value.data.data[0]))
+        console.log(res.value.data.data[0].role)
+        if (res.value.data.data[0].role == 2) {
+            this.props.history.push('/home')
+        }
+        else{
+          this.props.history.push('/dashboard')
+        }
+
+      }).catch((err)=>{
+        console.log(err.response)
+       openNotificationWithIcon('error','Error',err.response.data.msg)
       })
       // axios({
       //     method: 'POST',
@@ -64,16 +77,6 @@ class LoginPage extends Component {
       //   console.log('detail')
       // )
  }
-    openNotification = (msg,title) => {
-      notification.open({
-        message: title,
-        description:
-          msg,
-        onClick: () => {
-          console.log('Notification Clicked!');
-        },
-      });
-    };
     componentDidMount(){
 
     }

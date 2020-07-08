@@ -14,3 +14,26 @@ export const login = data => {
         }),
     }
 }
+
+export const logout = () => {
+    return {
+        type : "LOGOUT"
+    }
+}
+
+export const register = data =>{
+    return {
+        type : 'REGISTER',
+        payload : 
+        axios({
+            method: 'POST',
+            url : 'http://localhost:3000/api/users/registers',
+            data : {
+                name : data.name,
+                email : data.email,
+                password : data.password,
+                role : 2
+            }
+        })
+    }
+}
