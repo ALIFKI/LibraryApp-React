@@ -1,3 +1,39 @@
+# LibraryApp-ReactJS
+LibraryApp-React frontend with ReactJS
+for Library apps frontend
+
+# Installation
+* Install depedencies
+* Configure ENV
+* Run npm start
+
+# Stack
+* ReactJS
+* Redux
+* [Library-API](https://github.com/ALIFKI/LibraryApp-API)
+* 
+
+# Dependencies
+* [Ant Design](https://) Framework for frontend.
+* [axios](https://) Promise based HTTP client for the browser and node.js.
+* [reactstrap](https://) Framework for frontend from react.
+* [react-redux](https://) React Redux is the official React binding for Redux. It lets your React components read data from a Redux store, and dispatch actions to the store to update data.
+* [redux](https://) Redux is a predictable state container for JavaScript apps.
+* [redux-logger](https://) log for redux activity
+* [tiny-mce/tintmce-react](https://) TinyMCE is the world's most customizable, and flexible, rich text editor.
+* [react-router-dom](https://) DOM bindings for React Router.
+
+
+# Features 
+* User Management
+* Book Management
+* Upload Image
+* Filtering data(sort,search,limit,page)
+
+
+# ScreeenShot
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
