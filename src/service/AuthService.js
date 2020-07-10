@@ -18,6 +18,25 @@ function SecureRoute(props) {
         (<Redirect to={{pathname: '/'}}></Redirect>)}/>)
     
 }
-export default SecureRoute
+
+function validateUsername(params) {
+    var cekUser = new RegExp(/\S+@\S+\.\S+/);
+    return {
+        data : Boolean(params.match(cekUser)),
+        msg : 'Username Invalid'
+    }
+}
+
+function validatePassword(params) {
+    var cekPass   = new RegExp(/^[0-9A-Za-z!@#$%^&*]{8,}$/);
+    return {
+        data : Boolean(params.match(cekPass)),
+        msg : 'Password Invalid'
+    }
+}
+
+export default ()=> {
+    return {SecureRoute,validatePassword,validateUsername}
+}
 
 

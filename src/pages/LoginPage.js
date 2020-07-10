@@ -9,6 +9,9 @@ import { login } from '../redux/actions/auth'
 import {connect} from 'react-redux';
 import openNotificationWithIcon from '../components/Notif'
 import image from '../images/undraw_authentication_fsn5.svg'
+import AuthService from '../service/AuthService'
+
+const {validateUsername,validatePassword} = AuthService()
 class LoginPage extends Component {
     constructor(props,refs){
         super(props,refs)
@@ -26,19 +29,29 @@ class LoginPage extends Component {
         username : this.textInput.current.state.data,
         password : this.passwordInput.current.state.data
       }
-      this.props.login(data).then((res)=>{
-        console.log(res.value.data.data[0].role)
-        if (res.value.data.data[0].role == 2) {
-            this.props.history.push('/home')
+      if(validateUsername(data.username).data&&validatePassword(data.password).data){
+        this.props.login(data).then((res)=>{
+          console.log(res.value.data.data[0].role)
+          if (res.value.data.data[0].role == 2) {
+              this.props.history.push('/home')
+          }
+          else{
+            this.props.history.push('/dashboard')
+          }
+  
+        }).catch((err)=>{
+          console.log(err.response)
+         openNotificationWithIcon('error','Oops!!',err.response.data.msg)
+        })
+      }
+      else{
+        if (validateUsername(data.username).data === false) {
+          openNotificationWithIcon('error','Ooops!!','Invalid Email')
         }
-        else{
-          this.props.history.push('/dashboard')
+        if (validatePassword(data.password).data === false) {
+          openNotificationWithIcon('error','Ooops!!','Invalid Password')
         }
-
-      }).catch((err)=>{
-        console.log(err.response)
-       openNotificationWithIcon('error','Error',err.response.data.msg)
-      })
+      }
  }
     componentDidMount(){
 
