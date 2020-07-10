@@ -6,9 +6,9 @@ import Logo from '../images/bookshelf.png'
 import { notification } from 'antd';
 import InputLogin from '../components/Input';
 import { login } from '../redux/actions/auth'
-// import axios from 'axios';
 import {connect} from 'react-redux';
 import openNotificationWithIcon from '../components/Notif'
+import image from '../images/undraw_authentication_fsn5.svg'
 class LoginPage extends Component {
     constructor(props,refs){
         super(props,refs)
@@ -26,11 +26,7 @@ class LoginPage extends Component {
         username : this.textInput.current.state.data,
         password : this.passwordInput.current.state.data
       }
-      // console.log(data)
       this.props.login(data).then((res)=>{
-        // localStorage.setItem('token',res.value.data.data[0].token)
-        // localStorage.setItem('refreshToken',res.value.data.data[0].refreshToken)
-        // localStorage.setItem('userData',JSON.stringify(res.value.data.data[0]))
         console.log(res.value.data.data[0].role)
         if (res.value.data.data[0].role == 2) {
             this.props.history.push('/home')
@@ -43,36 +39,6 @@ class LoginPage extends Component {
         console.log(err.response)
        openNotificationWithIcon('error','Error',err.response.data.msg)
       })
-      // axios({
-      //     method: 'POST',
-      //     url : 'http://localhost:3000/api/users/login',
-      //     data : {
-      //         email : this.textInput.current.state.data,
-      //         password : this.passwordInput.current.state.data
-      //     }
-      // }).then(
-      //     (res)=>{
-      //         localStorage.setItem('token',res.data.data[0].token)
-      //         localStorage.setItem('refreshToken',res.data.data[0].refreshToken)
-      //         localStorage.setItem('userData',JSON.stringify(res.data.data[0]))
-      //         if(res.data.data[0].role == 1){
-      //           this.props.history.push('/dashboard')
-      //         }
-      //         else{
-      //           this.props.history.push('/home')
-      //         }
-                
-      //     }
-      // )
-      // .catch(
-      //     (err)=>{
-      //         console.log(err.response.data.msg)
-      //         this.openNotification(err.response.data.msg,'Error')
-      //     }
-      // )
-      // .finally(
-      //   console.log('detail')
-      // )
  }
     componentDidMount(){
 
@@ -87,6 +53,7 @@ class LoginPage extends Component {
                       <div className={Style.coverImage}>
                         <h2 className={Style.textwhite}>Book is The Window to The Universe</h2>
                           <div className={Style.textblock}>
+                            <img src={image} alt="nope"/>
                           </div>
                       </div>
                   </div>
