@@ -1,10 +1,10 @@
 import { Modal, Button } from 'antd';
 import React from 'react'
 import { connect } from 'react-redux';
-import { addGenre, getGenre, editGenre } from '../../redux/actions/genre';
-import InputLogin from '../Input';
-import openNotificationWithIcon from '../Notif';
-class MyModal extends React.Component {
+import InputLogin from '../../Input';
+import openNotificationWithIcon from '../../Notif';
+import {addAuthor, getAuthor} from '../../../redux/actions/author'
+class MyModalAuthor extends React.Component {
     constructor(props){
         super(props)
         this.textInput = React.createRef()
@@ -23,20 +23,21 @@ class MyModal extends React.Component {
 
   handleOk = () => {
     let data = {
-        genre : this.textInput.current.state.data,
+        author : this.textInput.current.state.data,
         token : this.props.auth.auth.token
     }
     this.setState({
       confirmLoading: true,
     });
     setTimeout(() => {
-        this.props.addGenre(data).then((res)=>{
+        this.props.addAuthor(data).then((res)=>{
             this.setState({
                 visible: false,
                 confirmLoading: false,
             });
-            openNotificationWithIcon('success','Success!!',res.value.data.msg)
-            this.props.getGenre(data)
+           openNotificationWithIcon('success','Success!!',res.value.data.msg)
+            this.textInput.current.reset()
+            this.props.getAuthor(data)
         }).catch((err)=>{
             this.setState({
                 visible: false,
@@ -61,16 +62,16 @@ class MyModal extends React.Component {
         <Button type="primary" onClick={this.showModal} style={{
             marginBottom: 16,
           }}>
-          Add Genre
+          Add Author
         </Button>
         <Modal
-          title="Add Genre"
+          title="Add Author"
           visible={visible}
           onOk={this.handleOk}
           confirmLoading={confirmLoading}
           onCancel={this.handleCancel}
         >
-        <InputLogin name={'Genre'} required={true} placeholder={'Genre'} type={'text'} ref={this.textInput}/>
+        <InputLogin name={'Author'} required={true} placeholder={'Author'} type={'text'} ref={this.textInput}/>
 
         </Modal>
       </div>
@@ -80,7 +81,7 @@ class MyModal extends React.Component {
 
 const mapStateToProps = state=>({
     auth : state.auth,
-    genre : state.genre,
+    author : state.author,
 })
-const mapDispatchToProps = {addGenre,getGenre}
-export default connect(mapStateToProps,mapDispatchToProps)(MyModal)
+const mapDispatchToProps = {addAuthor,getAuthor}
+export default connect(mapStateToProps,mapDispatchToProps)(MyModalAuthor)

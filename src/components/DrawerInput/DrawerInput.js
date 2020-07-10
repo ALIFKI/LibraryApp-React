@@ -45,7 +45,7 @@ class DrawerInput extends Component {
         method : 'GET',
         url : 'http://localhost:3000/api/authors?search=&limit=200&page=1&sort=0&by=author',
         headers : {
-          Authorization : localStorage.getItem('token')
+          Authorization : this.props.auth.auth.token
       },
       }).then((res)=>{
         this.setState({
@@ -64,7 +64,7 @@ class DrawerInput extends Component {
         method : 'GET',
         url : 'http://localhost:3000/api/genres?search=&page=1&limit=10&sort=0&by=genre',
         headers : {
-          Authorization : localStorage.getItem('token')
+          Authorization : this.props.auth.auth.token
       },
       }).then((res)=>{
         this.setState({
@@ -145,9 +145,6 @@ class DrawerInput extends Component {
       this.props.addBooks(formData,this.props.auth.auth.token).then((res)=>{
           this.setState({
             visible : false,
-            genre : '',
-            author : '',
-            status : ''
           })
           this.textInput.current.reset()
           this.image.current.resetImage()

@@ -1,11 +1,10 @@
 import React,{ useContext, useState, useEffect, useRef } from 'react';
 import { Table, Input, Button, Popconfirm, Form } from 'antd';
 import { connect } from 'react-redux';
-import { getGenre, deleteGenre, editGenre } from '../../redux/actions/genre';
-import openNotificationWithIcon from '../Notif';
-import MyModal from '../Modal';
+import openNotificationWithIcon from '../../Notif';
+import MyModalAuthor from '../../Modal/author';
+import { getAuthor, deleteAuthor, editAuthor } from '../../../redux/actions/author';
 const EditableContext = React.createContext();
-
 
 const EditableRow = ({ index, ...props }) => {
   const [form] = Form.useForm();
@@ -87,22 +86,22 @@ const EditableCell = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-class EditableTable extends React.Component {
+class EditableTableAuthor extends React.Component {
   constructor(props) {
     super(props);
     console.log(props)
     this.columns = [
       {
-        title: 'Genre',
-        dataIndex: 'genre',
+        title: 'Author',
+        dataIndex: 'author',
         editable: true,
       },
       {
         title: 'actions',
         dataIndex: 'operation',
         render: (text, record) =>
-          this.props.genre.genre.length >= 1 ? (
-            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id_genre)}>
+          this.props.author.author.length >= 1 ? (
+            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id_author)}>
               <a>Delete</a>
             </Popconfirm>
           ) : null,
@@ -110,12 +109,7 @@ class EditableTable extends React.Component {
     ];
     this.state = {
       dataSource: [
-        {
-          no: '0',
-          genre: 'Edward King 0',
-        }
       ],
-      count: 2,
     };
   }
 
@@ -123,36 +117,18 @@ class EditableTable extends React.Component {
     let data = {
       token : this.props.auth.auth.token
     }
-    this.props.getGenre(data)
+    this.props.getAuthor(data)
   }
 
   handleDelete = key => {
-    // const dataSource = [...this.state.dataSource];
-    // this.setState({
-    //   dataSource: dataSource.filter(item => item.key !== key),
-    // });
     let data = {
       id : key,
       token : this.props.auth.auth.token 
     }
-    this.props.deleteGenre(data).then((res)=>{
+    this.props.deleteAuthor(data).then((res)=>{
       console.log(res.value)
       openNotificationWithIcon('success','Success!',res.value.data.msg)
     })
-  };
-
-  handleAdd = () => {
-    // const { count, dataSource } = this.state;
-    // const newData = {
-    //   key: count,
-    //   name: `Edward King ${count}`,
-    //   age: 32,
-    //   address: `London, Park Lane no. ${count}`,
-    // };
-    // this.setState({
-    //   dataSource: [...dataSource, newData],
-    //   count: count + 1,
-    // });
   };
 
   handleSave = row => {
@@ -167,7 +143,7 @@ class EditableTable extends React.Component {
       ...row,
       token : this.props.auth.auth.token
     }
-    this.props.editGenre(data).then((res)=>{
+    this.props.editAuthor(data).then((res)=>{
       console.log(res)
       openNotificationWithIcon('success','Success!!',res.value.data.msg)
     }).catch((err)=>{
@@ -210,13 +186,13 @@ class EditableTable extends React.Component {
         >
           Add a row
         </Button> */}
-        <MyModal/>
+        <MyModalAuthor/>
         <Table
           
           components={components}
           rowClassName={() => 'editable-row'}
           bordered
-          dataSource={this.props.genre.genre}
+          dataSource={this.props.author.author}
           columns={columns}
         />
       </div>
@@ -226,11 +202,11 @@ class EditableTable extends React.Component {
 
 const mapStateToProps = state =>({
   auth : state.auth,
-  genre : state.genre
+  author : state.author
 })
 const mapDispatchToProps = {
-  getGenre,
-  deleteGenre,
-  editGenre
+  getAuthor,
+  deleteAuthor,
+  editAuthor
 }
-export default connect(mapStateToProps,mapDispatchToProps)(EditableTable)
+export default connect(mapStateToProps,mapDispatchToProps)(EditableTableAuthor)

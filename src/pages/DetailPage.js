@@ -8,6 +8,7 @@ import openNotificationWithIcon from '../components/Notif';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { getBookbyId, borrow } from '../redux/actions/book';
+import { getTransaction } from '../redux/actions/history';
 // import 'moment-timezone'
 class DetailPage extends Component{
     constructor(props){
@@ -53,11 +54,16 @@ class DetailPage extends Component{
             token : this.props.auth.auth.token,
             id : this.props.match.params.id
         }
+        let fdata = {
+            id : this.props.auth.auth.id,
+            token : this.props.auth.auth.token
+        }
         this.props.borrow(data).then((res)=>{
             console.log(res.value)
             this.setState({
                 status : 'Borrowed'
             })
+            this.props.getTransaction(fdata)
             openNotificationWithIcon('success','Borrow Success!!',res.value.data.msg)
         }).catch((err)=>{
             console.log(err)
@@ -163,6 +169,7 @@ const mapStateToProps = state=>({
 })
 const mapDispatchToProps = {
     getBookbyId,
-    borrow
+    borrow,
+    getTransaction
 }
 export default connect(mapStateToProps,mapDispatchToProps)(DetailPage)

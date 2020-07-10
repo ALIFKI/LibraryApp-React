@@ -10,6 +10,8 @@ import {
 } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { logout } from '../redux/actions/auth';
+import { getTransaction, returnBook } from '../redux/actions/history';
+import openNotificationWithIcon from './Notif';
 
 
 class DrawerApp extends Component {
@@ -33,23 +35,30 @@ class DrawerApp extends Component {
   };
   //get History 
   handleHistory = ()=>{
-      Axios({
-          method : 'GET',
-          url : 'http://localhost:3000/api/transactions/user?search=&limit=10&page=1&sort=0&by=name&order=name',
-          headers : {
-            Authorization : localStorage.getItem('token')
-          },
-          data : {
-              id : 18
-          }
-      }).then((res)=>{
-          console.log(res.data)
-          this.setState({
-              history : res.data.data
-          })
-      }).catch((err)=>{
-          console.log(err)
-      })
+    let data = {
+      id : this.props.auth.auth.id,
+      token : this.props.auth.auth.token
+    }
+    this.props.getTransaction(data).then((res)=>{
+      console.log(res)
+    })
+        // axios({
+      //     method : 'GET',
+      //     url : 'http://localhost:3000/api/transactions/user?search=&limit=10&page=1&sort=0&by=name&order=name',
+      //     headers : {
+      //       Authorization : localStorage.getItem('token')
+      //     },
+      //     data : {
+      //         id : 18
+      //     }
+      // }).then((res)=>{
+      //     console.log(res.data)
+      //     this.setState({
+      //         history : res.data.data
+      //     })
+      // }).catch((err)=>{
+      //     console.log(err)
+      // })
   }
   onClose = () => {
     this.setState({
@@ -69,6 +78,22 @@ class DrawerApp extends Component {
     this.props.logout()
     this.props.history.push('/login')
   }
+  handleReturn =(id)=>()=>{
+    let data = {
+      token : this.props.auth.auth.token
+    }
+    this.props.returnBook(data,id).then((res)=>{
+      console.log(res)
+      let data = {
+        id : this.props.auth.auth.id,
+        token : this.props.auth.auth.token
+      }
+      this.props.getTransaction(data)
+      openNotificationWithIcon('success','Success!!',res.value.data.msg)
+    }).catch((err)=>{
+      openNotificationWithIcon('error','error',err.response.data.msg)
+    })
+  }
 
   getUser = ()=>{
     this.setState({
@@ -87,11 +112,11 @@ class DrawerApp extends Component {
     const content = (
       <div className={`${Style.popoverContent}`}>
           <div className={`${Style.popoverList}`}>
-          {this.state.history.map((row,index)=>{
-            return <p key={index}><BookOutlined style={{paddingRight: '10px'}}/>
+          {this.props.historyData.history.map((row,index)=>{
+            return <p key={index}><BookOutlined style={{paddingRight: '10px'}} onClick={this.handleReturn(row.id)}/>
             {row.title}
-            <Badge count={<ClockCircleOutlined style={{ color: '#f5222d' }} />}>
-            </Badge>
+            {row.return_date === null?<Badge count={<ClockCircleOutlined style={{ paddingLeft: '10px',color: '#f5222d' }} />}>
+            </Badge>: null}
             </p>    
           })}
           </div>
@@ -127,7 +152,7 @@ class DrawerApp extends Component {
             <Avatar size={140} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
             </div>
             <div className={`name m-auto ${Style.name}`}>
-              <h5> Username </h5>
+              <h5> {this.props.auth.auth.email} </h5>
             </div>
           </div>
           <div className={`d-flex flex-column justify-content-center p-2 pt-4 ${Style.menuList}`}>
@@ -143,7 +168,8 @@ class DrawerApp extends Component {
 }
 const mapStateToProps = state=>({
   auth : state.auth,
-  home : state.home
+  home : state.home,
+  historyData : state.history
 })
-const mapDispatchToProps = {logout}
+const mapDispatchToProps = {logout,getTransaction,returnBook}
 export default connect(mapStateToProps,mapDispatchToProps)(DrawerApp)

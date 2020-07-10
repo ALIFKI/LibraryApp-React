@@ -13,7 +13,7 @@ const auth = (state = initialState,action) =>{
         return { 
             ...state,
             isLoading : true,
-            isError : true
+            isError : false
         }
         case "LOGIN_REJECTED": 
         console.log(action.payload.data)
@@ -21,10 +21,9 @@ const auth = (state = initialState,action) =>{
             ...state,
             isLoading : false,
             isError : true,
-            errorMsg : 'Data Rejected'
+            errorMsg : 'User not found'
         }
         case "LOGIN_FULFILLED": 
-        console.log(action.payload.data.data[0])
         return { 
             ...state,
             isLoading : false,

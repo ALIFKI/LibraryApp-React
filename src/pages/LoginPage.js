@@ -21,9 +21,6 @@ class LoginPage extends Component {
     }
     //Handle Login
     handleLogin = (event)=>{
-      this.setState({
-        isLoading : true
-      })
       event.preventDefault();
       const data = {
         username : this.textInput.current.state.data,
@@ -31,9 +28,9 @@ class LoginPage extends Component {
       }
       // console.log(data)
       this.props.login(data).then((res)=>{
-        localStorage.setItem('token',res.value.data.data[0].token)
-        localStorage.setItem('refreshToken',res.value.data.data[0].refreshToken)
-        localStorage.setItem('userData',JSON.stringify(res.value.data.data[0]))
+        // localStorage.setItem('token',res.value.data.data[0].token)
+        // localStorage.setItem('refreshToken',res.value.data.data[0].refreshToken)
+        // localStorage.setItem('userData',JSON.stringify(res.value.data.data[0]))
         console.log(res.value.data.data[0].role)
         if (res.value.data.data[0].role == 2) {
             this.props.history.push('/home')

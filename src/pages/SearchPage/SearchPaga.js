@@ -6,6 +6,7 @@ import Style from './SearchPageStyle.module.css';
 import CardSearch from '../../components/CardSearch/Card'
 import CardBook from '../../components/Card'
 import axios from 'axios'
+import { connect } from 'react-redux';
 const {Search } = Input
 const { Option } = Select
 
@@ -42,12 +43,13 @@ class SearchPage extends Component {
             isLoading : true,
         })
         this.getAll()
+        this.props.history.push(`?search=${this.state.search}&page=${this.state.current}&limit=${this.state.limit}&sort=${this.state.sort}&by=${this.state.by}&order=${this.state.order}`)
     }
     getAll = ()=>{
         axios({
             method: 'GET',
             headers : {
-                Authorization : localStorage.getItem('token')
+                Authorization : this.props.auth.auth.token
             },
             url : `http://localhost:3000/api/books?search=${this.state.search}&page=${this.state.current}&limit=${this.state.limit}&sort=${this.state.sort}&by=${this.state.by}&order=${this.state.order}`
         }).then(
@@ -76,7 +78,7 @@ class SearchPage extends Component {
         axios({
             method: 'GET',
             headers : {
-                Authorization : localStorage.getItem('token')
+                Authorization : this.props.auth.auth.token
             },
             url : `http://localhost:3000/api/books?search=${this.state.search}&page=${page}&limit=${this.state.limit}&sort=${this.state.sort}&by=${this.state.by}&order=${this.state.order}`
         }).then(
@@ -108,6 +110,8 @@ class SearchPage extends Component {
     handleSortOnChange = (e)=>{
         this.setState({
         sort : e
+        },(e)=>{
+            this.getAll()
         })
     }
     async onVange(page) {
@@ -167,13 +171,14 @@ class SearchPage extends Component {
         else{
 
         }
+        
         return (
             <>
             <Container fluid>
                 <PageHeader
                     className={``}
                     title={'Search Page'}
-                    onBack={()=>{this.props.history.goBack()}}
+                    onBack={()=>{this.props.auth.auth.role == 1 ? this.props.history.push('/dashboard') : this.props.history.push('/home')}}
                     style={{backgroundColor: 'white'}}/>
                     <div className="row">
                         <div className="col-md-12 justify-content-center align-items-center">
@@ -214,7 +219,7 @@ class SearchPage extends Component {
                             <div className="col-md-12 d-flex flex-wrap justify-content-center align-items-center p-5">
                                 {
                                     this.state.books.map((row,index)=>{
-                                        if(this.state.user.role == 1){
+                                        if(this.props.auth.auth.role == 1){
                                             return <CardBook i={index} key={row.id} data={row} history={this.props.history} onDelete={this.handleOnDelete}/>
                                         }
                                         else{
@@ -241,5 +246,7 @@ class SearchPage extends Component {
         )
     }
 }
-
-export default SearchPage
+const mapStateToProps = state =>({
+    auth : state.auth
+})
+export default connect(mapStateToProps)(SearchPage)

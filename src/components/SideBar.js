@@ -37,17 +37,19 @@ class SideBar extends Component {
                     <div className={`p-2 d-flex align-items-start ${Style.menuList} ${this.props.history.location.pathname === '/genre'? Style.active : ''}`} onClick={this.handleOnClick('genre')}>
                         <p className={`m-auto  ml-2`}>Manage Genre</p>
                     </div>
-                    <div className={`p-2 d-flex align-items-start ${Style.menuList}`}>
+                    <div className={`p-2 d-flex align-items-start ${Style.menuList} ${this.props.history.location.pathname === '/author'? Style.active : ''}`} onClick={this.handleOnClick('author')}>
                         <p className={`m-auto  ml-2`}>Mange Author</p>
                     </div>
-                    <div className={`p-2 d-flex align-items-start ${Style.menuList}`} onClick={this.handleOnClick('search')}>
+                    <div className={`p-2 d-flex align-items-start ${Style.menuList} ${this.props.history.location.pathname === '/search'? Style.active : ''}`} onClick={this.handleOnClick('search')}>
                         <p className={`m-auto  ml-2`}><SearchOutlined/>Search</p>
                     </div>
                     <div className={`p-2 d-flex align-items-start ${Style.menuList}`} onClick={this.handleLogout}>
                         <p className={`m-auto  ml-2`}><LogoutOutlined style={{marginRight: '5px'}} />Logout</p>
                     </div>
                 </div>
-                <DrawerInput/>
+                {
+                    this.props.history.location.pathname === '/dashboard'? <DrawerInput/>:null
+                }
             </div>
         )
     }

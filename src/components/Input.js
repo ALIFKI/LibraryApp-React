@@ -1,5 +1,6 @@
 import React,{ Component } from 'react'
 import InputStyle from '../styles/InputStyle.module.css'
+import openNotificationWithIcon from './Notif'
 
 class InputLogin extends Component {
     constructor(props){
@@ -27,10 +28,16 @@ class InputLogin extends Component {
     componentDidMount(){
 
     }
+    validImage = (e)=>{
+        if (!e[0].name.match(/\.(jpg|jpeg|png|gif)$/)) {
+            openNotificationWithIcon('error','Invalid Image!!','Please Use Image jpg/jpeg/png ')
+            return false;
+        }
+    }
     render(){
         let input
         if(this.props.type === 'file'){
-            input = <input type={this.props.type} required={this.props.required ? 'required' : ''} onChange={(e)=>{this.setState({image : e.target.files});}} className={InputStyle.input}/>
+            input = <input type={this.props.type} required={this.props.required ? 'required' : ''} onChange={(e)=>{this.setState({image : e.target.files});this.validImage(e.target.files)}} className={InputStyle.input}/>
         }
         else{
             input = <input type={this.props.type} required={this.props.required ? 'required' : ''} onChange={(e)=>{this.setState({data : e.target.value})}} className={InputStyle.input} value={this.state.data}/>

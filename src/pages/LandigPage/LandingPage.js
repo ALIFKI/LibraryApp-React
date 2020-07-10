@@ -23,7 +23,7 @@ class LandingPage extends Component {
     getGenre = ()=>{
         this.props.getGenre(this.props.auth.auth.token)
     }
-    componentDidMount(){
+    componentWillMount(){
         this.getData()
         this.getGenre()
     }
@@ -53,11 +53,19 @@ class LandingPage extends Component {
                         <div className={Style.content}>
                             <h3>Classic</h3>
                         </div>
-                        <div className={`${Style.cardWrapper}`}>
+                        {/* <div className={`${Style.cardWrapper}`}>
                             {this.props.home.book.map((row)=>{
                                 return <CardBook key={row.id} data={row} history={this.props.history} l={this.props}/>
                             })}
+                        </div> */}
+                        {
+                            this.props.home.isLoading ? '' :
+                            <div className={`${Style.cardWrapper}`}>
+                            {this.props.home.book.map((row)=>{
+                                return <CardBook data={row} key={row.id} history={this.props.history} l={this.props}/>
+                            })}
                         </div>
+                        }
                     </div>
                 </div>
                 <div className="row" style={{backgroundColor:'#F4F3F1'}}>
@@ -65,11 +73,19 @@ class LandingPage extends Component {
                         <div className={Style.content}>
                             <h3>Horor</h3>
                         </div>
-                        <div className={`${Style.cardWrapper}`}>
+                        {/* <div className={`${Style.cardWrapper}`}>
                             {this.props.home.adventure.map((row)=>{
                                 return <CardBook key={row.id} data={row} history={this.props.history} l={this.props}/>
                             })}
+                        </div> */}
+                        {
+                            this.props.home.isLoading ? '' :
+                            <div className={`${Style.cardWrapper}`}>
+                            {this.props.home.adventure.map((row)=>{
+                                return <CardBook data={row} key={row.id} history={this.props.history} l={this.props}/>
+                            })}
                         </div>
+                        }
                     </div>
                 </div>
                 <div className="row" style={{backgroundColor:'#F4F3F1'}}>
@@ -77,11 +93,14 @@ class LandingPage extends Component {
                         <div className={Style.content}>
                             <h3>Adventure</h3>
                         </div>
-                        <div className={`${Style.cardWrapper}`}>
+                        {
+                            this.props.home.isLoading ? '' :
+                            <div className={`${Style.cardWrapper}`}>
                             {this.props.home.book.map((row)=>{
                                 return <CardBook data={row} key={row.id} history={this.props.history} l={this.props}/>
                             })}
                         </div>
+                        }
                     </div>
                 </div>
             </Container>
