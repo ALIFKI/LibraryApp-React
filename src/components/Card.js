@@ -41,23 +41,6 @@ class CardBook extends Component {
                 openNotificationWithIcon('error','error',res.value.data.msg)
             }
         })
-        // this.setState({
-        //   deleteLoading : true
-        // })
-        // axios({
-        //     method : 'DELETE',
-        //     url : 'http://localhost:3000/api/books/'+id,
-        //     headers : {
-        //         Authorization : localStorage.getItem('token')
-        //     }
-        // }).then(
-        //     (res)=>{
-        //         openNotificationWithIcon('success','success',res.data.msg)
-        // }).catch((err)=>{
-        //     console.log(err)
-        // }).finally(     
-        //     this.props.onDelete(this.props.i)
-        // )
       }
     render() {
         const { Meta } = Card;

@@ -21,7 +21,7 @@ class AuthorPage extends Component {
             password : ''
 
         }
-        console.log(this.props)
+        // console.log(this.props)
     }
     componentWillMount(){
         this.setState({

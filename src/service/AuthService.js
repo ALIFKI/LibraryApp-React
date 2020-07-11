@@ -35,8 +35,21 @@ function validatePassword(params) {
     }
 }
 
+function validateName(params){
+    var cekName = new RegExp(/^[0-9A-Za-z!@#$%^&*]{3,}$/)
+    return {
+        data : Boolean(params.match(cekName)),
+        msg : 'Name Invalid'
+    }
+}
+
 export default ()=> {
-    return {SecureRoute,validatePassword,validateUsername}
+    return {
+        SecureRoute,
+        validatePassword,
+        validateUsername,
+        validateName    
+    }
 }
 
 

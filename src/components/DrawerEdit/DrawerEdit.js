@@ -166,14 +166,14 @@ class DrawerEdit extends Component {
         token : this.props.auth.auth.token
       }
       this.props.editBook(data).then((res)=>{
-        console.log(res.value)
+        // console.log(res.value)
         openNotificationWithIcon('success','Success!',res.value.data.msg)
           this.setState({
             visible : false
           })
           this.props.getBook(this.props.auth.auth.token)
       }).catch((err)=>{
-        console.log(err.response)
+        // console.log(err.response)
       })
       // Axios({
       //   method : 'PUT',

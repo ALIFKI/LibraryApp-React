@@ -89,7 +89,7 @@ const EditableCell = ({
 class EditableTableAuthor extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props)
+    // console.log(props)
     this.columns = [
       {
         title: 'Author',
@@ -126,7 +126,7 @@ class EditableTableAuthor extends React.Component {
       token : this.props.auth.auth.token 
     }
     this.props.deleteAuthor(data).then((res)=>{
-      console.log(res.value)
+      // console.log(res.value)
       openNotificationWithIcon('success','Success!',res.value.data.msg)
     })
   };
@@ -144,10 +144,10 @@ class EditableTableAuthor extends React.Component {
       token : this.props.auth.auth.token
     }
     this.props.editAuthor(data).then((res)=>{
-      console.log(res)
+      // console.log(res)
       openNotificationWithIcon('success','Success!!',res.value.data.msg)
     }).catch((err)=>{
-      console.log(err.response)
+      // console.log(err.response)
     })
   };
 

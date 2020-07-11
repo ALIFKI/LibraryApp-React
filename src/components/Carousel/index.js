@@ -14,7 +14,7 @@ class CarouselLanding extends Component {
         this.state = {
             book : []
         }
-        console.log(props)
+        // console.log(props)
     }
     getData = ()=>{
         this.props.getCarousel(this.props.auth.auth.token)

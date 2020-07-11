@@ -33,7 +33,7 @@ class CardSearch extends Component {
             (res)=>{
                 openNotificationWithIcon('success','success',res.data.msg)
         }).catch((err)=>{
-            console.log(err)
+            // console.log(err)
         }).finally(     
             this.props.onDelete(this.props.i)
         )

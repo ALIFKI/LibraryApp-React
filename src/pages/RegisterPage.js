@@ -5,9 +5,12 @@ import { Link } from 'react-router-dom'
 import Logo from '../images/bookshelf.png'
 import openNotificationWithIcon from '../components/Notif'
 // import {notification } from 'antd';
+import image from '../images/undraw_mobile_login_ikmv.svg'
 import InputLogin from '../components/Input';
 import {connect} from 'react-redux'
 import { register } from '../redux/actions/auth';
+import AuthService from '../service/AuthService'
+const { validateUsername,validatePassword,validateName } = AuthService()
 class RegisterPage extends Component {
     constructor(props){
         super(props)
@@ -25,37 +28,26 @@ class RegisterPage extends Component {
             email : this.textEmail.current.state.data,
             password : this.textPassword.current.state.data,
       }
-      this.props.register(data).then((res)=>{
-        openNotificationWithIcon('success',"Success!",'Silahkan Login')
-        this.props.history.push('/login')
-      }).catch((err)=>{
-        openNotificationWithIcon('error','Something Wrong',this.props.stateAuth.errorMsg)
-      })
-    //   axios({
-    //     method: 'POST',
-    //     url : 'http://localhost:3000/api/users/registers',
-    //     data : {
-    //         name : this.textName.current.state.data,
-    //         email : this.textEmail.current.state.data,
-    //         password : this.textPassword.current.state.data,
-    //         role : 2
-    //     }
-    // }).then(
-    //     (res)=>{
-    //         console.log(res)
-    //           openNotificationWithIcon('success',"Success!",'Silahkan Login')
-    //           this.props.history.push('/login')
-    //     }
-    // )
-    // .catch(
-    //     (err)=>{
-    //         console.log()
-    //         openNotificationWithIcon('error','Something Wrong',err.response.data.msg)
-    //     }
-    // )
-    // .finally(
-    //   console.log('detail')
-    // )
+      if (validateName(data.name).data&&validatePassword(data.password)&&validateUsername(data.email)) {
+        console.log('yesss')
+      }
+      else{
+        if (validateUsername(data.email).data === false) {
+          openNotificationWithIcon('error','Ooops!!','Invalid Email')
+        }
+        if (validatePassword(data.password).data === false) {
+          openNotificationWithIcon('error','Ooops!!','Invalid Password')
+        }
+        if (validateName(data.name).data === false) {
+          openNotificationWithIcon('error','Ooops!!','Invalid Name')
+        }
+      }
+      // this.props.register(data).then((res)=>{
+      //   openNotificationWithIcon('success',"Success!",'Silahkan Login')
+      //   this.props.history.push('/login')
+      // }).catch((err)=>{
+      //   openNotificationWithIcon('error','Something Wrong',this.props.stateAuth.errorMsg)
+      // })
     }
 
     render() {
@@ -64,9 +56,10 @@ class RegisterPage extends Component {
               <Row>
                 <Col md='7' sm='0'className={`p-0 ${Style.remove}`}>
                   <div className={`d-flex flex-column w-100 h-100`}>
-                      <div className={Style.coverImage}>
+                  <div className={Style.coverImage}>
                         <h2 className={Style.textwhite}>Book is The Window to The Universe</h2>
                           <div className={Style.textblock}>
+                            <img src={image} alt="nope"/>
                           </div>
                       </div>
                   </div>

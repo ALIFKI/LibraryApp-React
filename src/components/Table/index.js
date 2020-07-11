@@ -90,7 +90,6 @@ const EditableCell = ({
 class EditableTable extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props)
     this.columns = [
       {
         title: 'Genre',
@@ -136,7 +135,6 @@ class EditableTable extends React.Component {
       token : this.props.auth.auth.token 
     }
     this.props.deleteGenre(data).then((res)=>{
-      console.log(res.value)
       openNotificationWithIcon('success','Success!',res.value.data.msg)
     })
   };
@@ -168,10 +166,8 @@ class EditableTable extends React.Component {
       token : this.props.auth.auth.token
     }
     this.props.editGenre(data).then((res)=>{
-      console.log(res)
       openNotificationWithIcon('success','Success!!',res.value.data.msg)
     }).catch((err)=>{
-      console.log(err.response)
     })
   };
 

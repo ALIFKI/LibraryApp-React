@@ -12,7 +12,6 @@ class SliderComponent extends Component {
         this.state ={
             book : {}
         }
-        console.log(this.props.home)
     }
     getData = ()=>{
         Axios({
@@ -22,9 +21,9 @@ class SliderComponent extends Component {
                 Authorization : localStorage.getItem('token'),
             }
         }).then((res)=>{
-            console.log(res)
+            // console.log(res)
         }).catch((err)=>{
-            console.log(err)
+            // console.log(err)
         })
     }
     componentWillMount(){

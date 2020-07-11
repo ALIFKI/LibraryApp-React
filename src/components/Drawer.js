@@ -24,7 +24,7 @@ class DrawerApp extends Component {
           user : {},
           history : []
        };
-       console.log(props)
+      //  console.log(props)
     }
 
   showDrawer = () => {
@@ -40,7 +40,7 @@ class DrawerApp extends Component {
       token : this.props.auth.auth.token
     }
     this.props.getTransaction(data).then((res)=>{
-      console.log(res)
+      // console.log(res)
     })
         // axios({
       //     method : 'GET',

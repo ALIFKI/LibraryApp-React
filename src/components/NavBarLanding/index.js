@@ -27,7 +27,6 @@ export default class NavBarLanding extends Component {
         this.state = {
             isOpen : false
         }
-        console.log(props)
     }
     toggle = ()=>{
         if (this.state.isOpen == false) {
