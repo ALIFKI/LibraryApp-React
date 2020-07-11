@@ -1,3 +1,28 @@
+@media only screen and (max-width: 600px) {
+    .cardBook{
+        height: 200px !important;
+        width: 150px !important;
+    }
+    .title{
+        width: 50% !important;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        /* justify-content: center; */
+        /* align-items: center; */
+    }
+    .title h3{
+        font-size: 20px;
+        margin: 0px 10px!important;
+    }
+    .title p {
+        margin : 0 0px 20px 5px
+    }
+    .title button{
+        width: 60%;
+    }
+  }
 .cardBook{
     height: 300px;
     width: 200px;
@@ -14,7 +39,11 @@
         width: 100%;
     }
     .title{
+        font-family: Poppins;
         width: 60%;
         margin: 20px;
         text-align: left;
+    }
+    .title h3{
+        font-family : Poppins-Bold
     }

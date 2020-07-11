@@ -7,6 +7,7 @@ import CardBook from '../../components/CardBook'
 import Axios from 'axios'
 import { getGenre,getData } from '../../redux/actions/home'
 import { connect } from 'react-redux'
+import Loading from '../../components/Loading'
 
 class LandingPage extends Component {
     constructor(props){
@@ -24,8 +25,8 @@ class LandingPage extends Component {
         this.props.getGenre(this.props.auth.auth.token)
     }
     componentWillMount(){
-        this.getData()
-        this.getGenre()
+            this.getData()
+            this.getGenre()      
     }
     render() {
         return (
@@ -38,7 +39,7 @@ class LandingPage extends Component {
                 <div className="row">
                     <div className="col-md-12">
                     <Jumbotron fluid style={{backgroundColor:'white'}}>
-                        <div className={Style.jumbotron}>
+                        <div className={`${Style.jumbotron} text-align-center`}>
                             <h2>Dont Stop learning because life dont stop teaching</h2>
                         <p className={`lead ${Style.textJumbotron}`}>Book is a World than you can touch it and library is the universe</p>
                         </div>
@@ -49,7 +50,7 @@ class LandingPage extends Component {
                     </div>
                 </div>
                 <div className="row" style={{backgroundColor:'#F4F3F1'}}>
-                    <div className="col-md-12 m-2" style={{paddingTop: '310px'}}>
+                    <div className={`col-md-12 m-2 ${Style.paddingTop}`}>
                         <div className={Style.content}>
                             <h3>Classic</h3>
                         </div>
@@ -59,12 +60,15 @@ class LandingPage extends Component {
                             })}
                         </div> */}
                         {
-                            this.props.home.isLoading ? '' :
+                            this.props.home.isLoadingGenre ? 
+                            <div className="d-flex justify-content-center align-items-center">
+                            <Loading/>
+                            </div> :
                             <div className={`${Style.cardWrapper}`}>
                             {this.props.home.book.map((row)=>{
                                 return <CardBook data={row} key={row.id} history={this.props.history} l={this.props}/>
                             })}
-                        </div>
+                            </div>
                         }
                     </div>
                 </div>
@@ -79,7 +83,11 @@ class LandingPage extends Component {
                             })}
                         </div> */}
                         {
-                            this.props.home.isLoading ? '' :
+                            this.props.home.isLoadingBook ?
+                            <div className="d-flex justify-content-center align-items-center">
+                                <Loading/>
+                            </div> 
+                            :
                             <div className={`${Style.cardWrapper}`}>
                             {this.props.home.adventure.map((row)=>{
                                 return <CardBook data={row} key={row.id} history={this.props.history} l={this.props}/>
@@ -94,7 +102,10 @@ class LandingPage extends Component {
                             <h3>Adventure</h3>
                         </div>
                         {
-                            this.props.home.isLoading ? '' :
+                            this.props.home.isLoadingGenre ? 
+                            <div className="d-flex justify-content-center align-items-center">
+                                <Loading/>
+                            </div> :
                             <div className={`${Style.cardWrapper}`}>
                             {this.props.home.book.map((row)=>{
                                 return <CardBook data={row} key={row.id} history={this.props.history} l={this.props}/>

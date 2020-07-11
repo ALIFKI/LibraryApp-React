@@ -29,7 +29,17 @@ class RegisterPage extends Component {
             password : this.textPassword.current.state.data,
       }
       if (validateName(data.name).data&&validatePassword(data.password)&&validateUsername(data.email)) {
-        console.log('yesss')
+        this.props.register(data).then((res)=>{
+          openNotificationWithIcon('success',"Success!",'Silahkan Login')
+          this.props.history.push('/login')
+        }).catch((err)=>{
+          if(this.props.stateAuth.errorMsg == `Duplicate entry '${data.email}' for key 'users_email_unique'`){
+            openNotificationWithIcon('error','Oopps!!',"Email has been taken by other user")
+          }
+          else{
+            openNotificationWithIcon('error','Something Wrong',this.props.stateAuth.errorMsg)
+          }
+        })
       }
       else{
         if (validateUsername(data.email).data === false) {
@@ -39,15 +49,10 @@ class RegisterPage extends Component {
           openNotificationWithIcon('error','Ooops!!','Invalid Password')
         }
         if (validateName(data.name).data === false) {
-          openNotificationWithIcon('error','Ooops!!','Invalid Name')
+          openNotificationWithIcon('error','Ooops!!','Invalid Username')
         }
       }
-      // this.props.register(data).then((res)=>{
-      //   openNotificationWithIcon('success',"Success!",'Silahkan Login')
-      //   this.props.history.push('/login')
-      // }).catch((err)=>{
-      //   openNotificationWithIcon('error','Something Wrong',this.props.stateAuth.errorMsg)
-      // })
+
     }
 
     render() {

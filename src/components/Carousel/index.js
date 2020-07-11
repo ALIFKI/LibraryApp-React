@@ -25,6 +25,10 @@ class CarouselLanding extends Component {
     componentWillMount(){
         this.getData()
     }
+    rawMarkup(row){
+        // var rawMarkup = row.description.substring(0,100)
+        return { __html: row };
+    }
     render() {
         const settings = {
             dots: true,
@@ -45,9 +49,10 @@ class CarouselLanding extends Component {
                             <img src={`http://localhost:3000/uploads/${row.image}`} alt="" />
                         </div>
                         <div className={`m-1 ${Style.title}`}>
-                            <h3 className={`m-2`}> {row.title} </h3>
+                            <h3 className={`m-2 mt-0`}> {row.title} </h3>
                             <p className={`Desc`}>
-                                {row.description.substring(0,100)}...
+                                {/* {row.description.substring(0,100)}... */}
+                                <span dangerouslySetInnerHTML={this.rawMarkup(row.description.substring(0,100))} />
                             </p>
                             <Button className={`btn right-btn ${Style.btnLogin} ${Style.fP}`} style={{backgroundColor: 'black'}} onClick={this.handleOnclick(row.id)}>detail</Button>
                         </div>

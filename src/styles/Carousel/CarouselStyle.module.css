@@ -2,6 +2,12 @@
     color: white;
     font-family: Poppins;
 }
+@media only screen and (max-width: 600px) {
+    .cardBook{
+        height: 200px !important;
+        width: 150px !important;
+    }
+  }
     .cardBook{
         height: 100px;
         width: 90px;

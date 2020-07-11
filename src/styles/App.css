@@ -12,6 +12,11 @@
     font-family: Poppins-Bold;
     src: url('../assets/font/poppins/Poppins-Bold.ttf');
 }
+@media only screen and (max-width: 600px) {
+    .slide-div{
+        height: 210px !important;
+    }
+  }
 .container{
     /* max-width: 1000px; */
     margin: 0px;
@@ -29,7 +34,7 @@
     position: relative;
     margin: auto;
     background-color : white;
-    box-shadow: rgba(0, 0, 0, 0.07) 0px 4px 6px -1px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 4px 6px 3px;
     display: flex !important;
     height: 300px;
     width: 100%;

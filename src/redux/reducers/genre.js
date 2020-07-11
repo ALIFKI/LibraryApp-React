@@ -17,24 +17,21 @@ const genre = (state = initialState,action)=>{
             isLoading : true,
         }
         case "GET_GENRE_REJECTED": 
-        console.log(action.payload)
         return {
             ...state,
             isLoading : false
         }
         case "GET_GENRE_FULFILLED":
-            console.log(action.payload)
-        return {
-            ...state,
-            genre : action.payload.data.data
-        }
+            return {
+                 ...state,
+                genre : action.payload.data.data
+            }
         case "DELETE_PENDING": 
         return {
             ...state,
             isLoading : true,
         }
         case "DELETE_REJECTED":
-            console.log(action.payload) 
         return {
             ...state,
             isLoading : false
@@ -52,7 +49,6 @@ const genre = (state = initialState,action)=>{
             isLoading : true,
         }
         case "ADD_REJECTED":
-            console.log(action.payload) 
         return {
             ...state,
             isLoading : false
@@ -67,7 +63,6 @@ const genre = (state = initialState,action)=>{
             isLoading : true,
         }
         case "EDIT_REJECTED":
-            console.log(action.payload) 
         return {
             ...state,
             isLoading : false

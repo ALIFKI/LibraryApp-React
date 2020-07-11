@@ -1,5 +1,7 @@
 const initialState = {
     isLoading : false,
+    isLoadingBook : false,
+    isLoadingGenre : false,
     isError : false,
     errorMsg : '' ,
     successMsg : '',
@@ -32,35 +34,35 @@ const home = (state = initialState,action) =>{
         case "GET_GENRE_PENDING" : 
         return {
             ...state,
-            isLoading : true,
+            isLoadingGenre : true,
         }
         case "GET_GENRE_REJECTED": 
         return {
             ...state,
-            isLoading : false,
+            isLoadingGenre : false,
             errorMsg : 'error',
         }
         case "GET_GENRE_FULFILLED":
-        return {
-            ...state,
-            isLoading : false,
-            adventure : action.payload.data.data
-        }
+                return {
+                    ...state,
+                    isLoadingGenre : false,
+                    adventure : action.payload.data.data
+                }
         case "GET_DATA_PENDING" : 
         return {
             ...state,
-            isLoading : true,
+            isLoadingBook : true,
         }
         case "GET_DATA_REJECTED": 
         return {
             ...state,
-            isLoading : false,
+            isLoadingBook : false,
             errorMsg : 'error',
         }
         case "GET_DATA_FULFILLED":
         return {
             ...state,
-            isLoading : false,
+            isLoadingBook : false,
             book : action.payload.data.data
         }
         default:
