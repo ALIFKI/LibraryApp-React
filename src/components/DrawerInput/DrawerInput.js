@@ -187,12 +187,12 @@ class DrawerInput extends Component {
           </div>
         </Space>
         <Drawer
-          width={500}
           placement={placement}
           closable={false}
           onClose={this.onClose}
           visible={visible}
           key={placement}
+          width={400}
           // maskStyle={{opacity:0,backgroundColor: 'rgba(0, 0, 0, 0.0)'}}
         >
             <div className="d-flex flex-column justify-content-center align-items-center">
@@ -206,6 +206,7 @@ class DrawerInput extends Component {
                     init={{
                     height: 200,
                     menubar: false,
+                    width : 330,
                     plugins: [
                         'advlist autolink lists link image charmap print preview anchor',
                         'searchreplace visualblocks code fullscreen',

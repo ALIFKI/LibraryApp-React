@@ -24,6 +24,7 @@
 }
 .fload{
     left: 0px;
+    z-index: 10;
 }
     .menuList{
         text-align: left;
@@ -31,13 +32,25 @@
         border-top-left-radius: 26px;
         border-bottom-left-radius: 26px;
         border-bottom-right-radius: 26px;
+        transition: 1s;
+        cursor: pointer;
     }
     .menuList:hover{
         background-color: #F5F6FA;
+        margin: 0px !important;
+    }
+    .menuList p {
+        transition: 0.9s;
     }
         .active{
             background-color: #262626;
             color: white ;
+        }
+        .active p{
+            margin: 0px !important;
+        }
+        .active:hover{
+            color: black;
         }
 .menuButton{
     opacity: 0;

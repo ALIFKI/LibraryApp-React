@@ -3,6 +3,7 @@ const initialState = {
     isError : false,
     errorMsg : '',
     books : [],
+    totalBooks : 0
 }
 
 
@@ -23,7 +24,8 @@ const admin = (state = initialState,action) =>{
         return {
             ...state,
             isLoading : false,
-            books : action.payload.data.data
+            books : action.payload.data.data,
+            totalBooks : action.payload.data.data.length
         }
         case "DELETE_BOOK_PENDING":
             return {

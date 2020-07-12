@@ -46,10 +46,10 @@ class SideBar extends Component {
                 </div>
                 <div className={'d-flex flex-column pr-0 mr-0 pl-2'}>
                     <div className={`p-2 d-flex align-items-start ${Style.menuList} ${this.props.history.location.pathname === '/dashboard'? Style.active : ''}`} onClick={this.handleOnClick('dashboard')}>
-                        <p className={`ml-2 m-0`}>List Book</p>
+                        <p className={`m-0 m-auto`}>List Book</p>
                     </div>
                     <div className={`p-2 d-flex align-items-start ${Style.menuList} ${this.props.history.location.pathname === '/genre'? Style.active : ''}`} onClick={this.handleOnClick('genre')}>
-                        <p className={`m-auto  ml-2`}>Manage Genre</p>
+                        <p className={`ml-2 m-auto`}>Manage Genre</p>
                     </div>
                     <div className={`p-2 d-flex align-items-start ${Style.menuList} ${this.props.history.location.pathname === '/author'? Style.active : ''}`} onClick={this.handleOnClick('author')}>
                         <p className={`m-auto  ml-2`}>Mange Author</p>

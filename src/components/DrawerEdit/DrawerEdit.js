@@ -175,27 +175,6 @@ class DrawerEdit extends Component {
       }).catch((err)=>{
         // console.log(err.response)
       })
-      // Axios({
-      //   method : 'PUT',
-      //   url : `http://localhost:3000/api/books/${this.props.id}`,
-      //   data : formData,
-      //   headers : {
-      //     'Content-Type' : 'multipart/form-data',
-      //     Authorization : localStorage.getItem('token')
-      //   }
-      // }).then(
-      //   (res)=>{
-      //     openNotificationWithIcon('success','Success',res.data.msg)
-      //     this.setState({
-      //       visible : false
-      //     })
-      //   }
-      // ).catch(
-      //   (err)=>{
-      //     openNotificationWithIcon('error','Error',err.response.data.msg)
-      //   }
-      // ).finally(
-      // )
 
     }
 
@@ -207,7 +186,7 @@ class DrawerEdit extends Component {
             <EditOutlined style={{fontSize: '20px'}} onClick={this.showDrawer}/>
         </Space>
         <Drawer
-          width={500}
+          width={400}
           placement={placement}
           closable={false}
           onClose={this.onClose}
@@ -224,6 +203,7 @@ class DrawerEdit extends Component {
                     apiKey = '9p428y16wndt918ysp9mhdxaxxba0vn0ho2o7wzv3otznk5i'
                     initialValue={this.state.book.description}
                     init={{
+                    width: 340,
                     height: 200,
                     menubar: false,
                     plugins: [

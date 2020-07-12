@@ -56,7 +56,7 @@ class HomePage extends Component {
                                 <img src={image}/>
                             </div>
                             <div className={`${Style.detailUser}`}>
-                                <p><b>Book Total</b> : 199</p>
+                                <p><b>Book Total</b> : {this.props.admin.totalBooks} </p>
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@ class HomePage extends Component {
                                 <img src='./admin.svg'/>
                             </div>
                             <div className={`${Style.detailUser}`}>
-                                <p>User :</p>
+                                <p> <b>User</b> : {this.props.auth.auth.name} </p>
                             </div>
                         </div>
                     </div>
