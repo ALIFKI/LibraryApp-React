@@ -48,6 +48,9 @@ class CarouselLanding extends Component {
                         <div className={`${Style.cardBook}`}>
                             <img src={`http://localhost:3000/uploads/${row.image}`} alt="" />
                         </div>
+                        <div className={`${Style.cardBook } ${Style.blur}`}>
+                            <img src={`http://localhost:3000/uploads/${row.image}`} alt="" />
+                        </div>
                         <div className={`m-1 ${Style.title}`}>
                             <h3 className={`m-2 mt-0`}> {row.title} </h3>
                             <p className={`Desc`}>

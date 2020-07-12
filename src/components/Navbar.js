@@ -6,8 +6,7 @@ import {
     Nav,
     UncontrolledDropdown,
     DropdownToggle,
-    DropdownMenu,
-    DropdownItem
+    NavItem
 } from 'reactstrap';
 import Style from '../styles/NavbarStyle.module.css'
 
@@ -22,11 +21,9 @@ class NavbarComponent extends Component {
                 <Collapse isOpen={true} navbar className={`pl-4`}>
                 <Nav className="mr-auto" navbar>
                     <UncontrolledDropdown nav inNavbar>
-                    {/* <NavItem>
-                    </NavItem> */}
-                    <DropdownToggle nav caret>
-                        All Kategori 
-                    </DropdownToggle>
+                    <NavItem>
+                        <h4>Dashboard</h4>
+                    </NavItem>
                     {/* <DropdownMenu right>
                         <DropdownItem>
                         Option 1

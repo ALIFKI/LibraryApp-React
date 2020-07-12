@@ -10,6 +10,7 @@ import axios from 'axios';
 import { Divider } from 'antd';
 import {connect} from 'react-redux'
 import { getBook } from '../redux/actions/admin';
+import image from '../images/undraw_noted_pc9f.svg'
 
 class HomePage extends Component {
     constructor(props){
@@ -47,17 +48,25 @@ class HomePage extends Component {
             <>
             <NavbarComponent/>
             <SideBar history={this.props.history}/>
-            <Container className={`${Style.bg}`} fluid={true} style={{paddingLeft:'250px',paddingTop:'70px'}}>
-                <div className="row d-flex flex-row align-items-start justify-content-start">
-                    <div className="col-8">
+            <Container className={`${Style.bg}`} fluid={true}>
+                <div className={`row d-flex flex-row align-items-start justify-content-start ${Style.statis}`}>
+                    <div className="col-md-4 p-2">
+                    <div className={`${Style.cardProfile}`}>
+                            <div className={`${Style.image}`}>
+                                <img src={image}/>
+                            </div>
+                            <div className={`${Style.detailUser}`}>
+                                <p><b>Book Total</b> : 199</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-4 p-2">
                         <div className={`${Style.cardProfile}`}>
                             <div className={`${Style.image}`}>
                                 <img src='./admin.svg'/>
                             </div>
                             <div className={`${Style.detailUser}`}>
-                                <p>Admin :</p>
+                                <p>User :</p>
                             </div>
                         </div>
                     </div>

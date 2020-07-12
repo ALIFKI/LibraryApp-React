@@ -5,6 +5,12 @@
     .paddingTop{
         padding-top: 210px !important;
     }
+    .Container{
+        padding : 0px 5px !important;
+    }
+    .content h3{
+        padding-left: 10px;
+    }
   }
 .Container{
     padding: 0px;

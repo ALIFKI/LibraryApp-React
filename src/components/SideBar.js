@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import {Divider, Drawer} from 'antd';
 import DrawerInput from '../components/DrawerInput/DrawerInput'
-import {SearchOutlined,LogoutOutlined} from '@ant-design/icons';
+import {SearchOutlined,LogoutOutlined,MenuOutlined} from '@ant-design/icons';
 import { logout } from '../redux/actions/auth' 
 import {connect} from 'react-redux';
 
@@ -13,8 +13,17 @@ class SideBar extends Component {
     constructor(props){
         super(props)
         console.log(this.props)
+        this.state = {
+            navbar : false
+        }
     }
-
+    showSide = ()=>{
+        this.state.navbar ? this.setState({
+            navbar : false
+        }) : this.setState({
+            navbar : true
+        })
+    }
     handleOnClick=(url)=>()=>{
         this.props.history.push(`/${url}`)
     }
@@ -25,11 +34,16 @@ class SideBar extends Component {
       }
     render() {
         return (
-            <div className={`${Style.sidebar}`}>
+            <div className={`${Style.sidebar} ${this.state.navbar ? Style.fload : ''}`}>
                 <NavbarBrand className={`m-0 pl-4 pt-4 pb-1`}>
                     <h3 className={`${Style.logo}`}>Library App</h3>
                 </NavbarBrand>
                 <Divider></Divider>
+                <div className={`${Style.menuButton}`} onClick={this.showSide}>
+                    <div className={`${Style.menuIcon}`}>
+                        <MenuOutlined/> <p>Menu</p>
+                    </div>
+                </div>
                 <div className={'d-flex flex-column pr-0 mr-0 pl-2'}>
                     <div className={`p-2 d-flex align-items-start ${Style.menuList} ${this.props.history.location.pathname === '/dashboard'? Style.active : ''}`} onClick={this.handleOnClick('dashboard')}>
                         <p className={`ml-2 m-0`}>List Book</p>
