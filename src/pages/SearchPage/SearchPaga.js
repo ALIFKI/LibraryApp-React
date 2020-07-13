@@ -88,6 +88,7 @@ class SearchPage extends Component {
                     books : res.data.data,
                 })
                 console.log(this.state)
+                this.props.history.push(`?search=${this.state.search}&page=${this.state.current}&limit=${this.state.limit}&sort=${this.state.sort}&by=${this.state.by}&order=${this.state.order}`)
             }
         )
         .catch(

@@ -1,6 +1,7 @@
 # LibraryApp-ReactJS
 LibraryApp-React frontend with ReactJS
-for Library apps frontend
+for Library apps frontend.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 # Installation
 * Install depedencies
@@ -36,9 +37,6 @@ for Library apps frontend
 [![Register.png](https://i.postimg.cc/xd5pvGpv/Register.png)](https://postimg.cc/kVVy9SmG)
 [![Home.png](https://i.postimg.cc/fWVZbkk2/Home.png)](https://postimg.cc/5jWD74BL)
 [![search.png](https://i.postimg.cc/kG0TJTDm/search.png)](https://postimg.cc/hQ0LMb9y)
-[![user.png](https://i.postimg.cc/zvbdYsz7/user.png)](https://postimg.cc/sGzPp0ZG)
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 

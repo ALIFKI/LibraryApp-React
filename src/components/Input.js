@@ -29,9 +29,13 @@ class InputLogin extends Component {
 
     }
     validImage = (e)=>{
+        console.log(e[0].size)
         if (!e[0].name.match(/\.(jpg|jpeg|png|gif)$/)) {
             openNotificationWithIcon('error','Invalid Image!!','Please Use Image jpg/jpeg/png ')
             return false;
+        }
+        if(e[0].size >=2000000){
+            openNotificationWithIcon('error','Invalid Image!!','file size no more 2mb')
         }
     }
     render(){
