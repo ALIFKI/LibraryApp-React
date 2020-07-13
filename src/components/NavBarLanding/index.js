@@ -6,6 +6,8 @@ import {
     SearchOutlined,
     MenuOutlined
   } from '@ant-design/icons';
+import History from '../../components/History'
+
 import {
     Collapse,
     Navbar,

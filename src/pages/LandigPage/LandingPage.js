@@ -7,7 +7,7 @@ import CardBook from '../../components/CardBook'
 import Axios from 'axios'
 import { getGenre,getData } from '../../redux/actions/home'
 import { connect } from 'react-redux'
-import Loading from '../../components/Loading'
+import Loading from '../../components/Loading';
 
 class LandingPage extends Component {
     constructor(props){

@@ -2,7 +2,6 @@ import { Drawer, Badge ,Space,Avatar,Popover,Button } from 'antd';
 import React, { Component } from 'react'
 // import { NavbarToggler } from 'reactstrap';
 import Style from "../styles/DrawerStyle.module.css";
-import Axios from 'axios'
 import {
   MenuOutlined,
   BookOutlined,
@@ -12,6 +11,7 @@ import { connect } from 'react-redux';
 import { logout } from '../redux/actions/auth';
 import { getTransaction, returnBook } from '../redux/actions/history';
 import openNotificationWithIcon from './Notif';
+import History from './History';
 
 
 class DrawerApp extends Component {
@@ -156,9 +156,7 @@ class DrawerApp extends Component {
             </div>
           </div>
           <div className={`d-flex flex-column justify-content-center p-2 pt-4 ${Style.menuList}`}>
-            <Popover placement="rightTop" title={text} content={content} trigger="hover">
-                <p>History</p>
-            </Popover>
+          <History data={this.props.historyData.history}/>
           <p onClick={this.handleLogout}>Logout</p>
           </div>
         </Drawer>

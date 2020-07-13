@@ -50,13 +50,23 @@ class HomePage extends Component {
             <SideBar history={this.props.history}/>
             <Container className={`${Style.bg}`} fluid={true}>
                 <div className={`row d-flex flex-row align-items-start justify-content-start ${Style.statis}`}>
-                    <div className="col-md-4 p-2">
+                <div className="col-md-4 p-2">
                     <div className={`${Style.cardProfile}`}>
                             <div className={`${Style.image}`}>
                                 <img src={image}/>
                             </div>
                             <div className={`${Style.detailUser}`}>
                                 <p><b>Book Total</b> : {this.props.admin.totalBooks} </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-4 p-2">
+                    <div className={`${Style.cardProfile}`}>
+                            <div className={`${Style.image}`}>
+                                <img src={image}/>
+                            </div>
+                            <div className={`${Style.detailUser}`}>
+                                <p><b>Genre Total</b> : {this.props.admin.totalBooks} </p>
                             </div>
                         </div>
                     </div>
