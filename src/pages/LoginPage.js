@@ -41,7 +41,7 @@ class LoginPage extends Component {
   
         }).catch((err)=>{
           console.log(err.response)
-         openNotificationWithIcon('error','Oops!!',err.response.data.msg)
+        //  openNotificationWithIcon('error','Oops!!',err.response.data.msg)
         })
       }
       else{
