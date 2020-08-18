@@ -17,12 +17,12 @@ const Auth = {
   OnAuth(){
       this.isLogin = false
   },
-  getLog(props){
+  getLog(){
     if (true) {
 
       this.isLogin = true
     }
-      return this.props.user.isLogin
+      return this.isLogin
   }
 }
 const SecureRoute = ({ component: Component, ...rest }) => (
@@ -43,7 +43,7 @@ function App(props) {
       <Switch>
         {/* <SecureRoute path='/login' component={LoginPage} /> */}
         <Route path='/login' component={LoginPage}/>
-        <Route path='/' component={LoginPage}/>
+        <Route path='/' exact component={LoginPage}/>
         <SecureRoute path="/details/page/:id" component={DetailPage} login='da'/>
         <Route path='/register' component={RegisterPage}/>
         <SecureRoute path='/dashboard' exact component={HomePage}/>
