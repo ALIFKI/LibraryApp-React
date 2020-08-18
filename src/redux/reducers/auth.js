@@ -36,6 +36,7 @@ const auth = (state = initialState,action) =>{
             ...state,
             isLoading : false,
             isError : false,
+            isLogin : false,
             errorMsg : '' ,
             auth : {}
         }

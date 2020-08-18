@@ -48,7 +48,7 @@ class DrawerEdit extends Component {
         headers: {
           Authorization : this.props.auth.auth.token
         },
-        url : `http://localhost:3000/api/books/${this.props.id}`
+        url : `${process.env.REACT_APP_URL_API}api/books/${this.props.id}`
       }).then((res)=>{
         this.setState({
           book : res.data.data,
@@ -66,7 +66,7 @@ class DrawerEdit extends Component {
     getAllAuthor = ()=>{
       Axios({
         method : 'GET',
-        url : 'http://localhost:3000/api/authors?search=&limit=200&page=1&sort=0&by=author',
+        url : `${process.env.REACT_APP_URL_API}api/authors?search=&limit=200&page=1&sort=0&by=author`,
         headers : {
           Authorization : this.props.auth.auth.token
       },
@@ -85,7 +85,7 @@ class DrawerEdit extends Component {
     getAllGenre = ()=>{
       Axios({
         method : 'GET',
-        url : 'http://localhost:3000/api/genres?search=&page=1&limit=10&sort=0&by=genre',
+        url : `${process.env.REACT_APP_URL_API}api/genres?search=&page=1&limit=10&sort=0&by=genre`,
         headers : {
           Authorization : this.props.auth.auth.token
       },

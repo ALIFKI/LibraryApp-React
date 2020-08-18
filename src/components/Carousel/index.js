@@ -46,10 +46,10 @@ class CarouselLanding extends Component {
                     this.props.carousel.carousel.map((row,index)=>{
                         return <div className='slide-div d-flex flex-row justify-content-end' key={index}>
                         <div className={`${Style.cardBook}`}>
-                            <img src={`http://localhost:3000/uploads/${row.image}`} alt="" />
+                            <img src={`${process.env.REACT_APP_URL_API}uploads/${row.image}`} alt="" />
                         </div>
                         <div className={`${Style.cardBook } ${Style.blur}`}>
-                            <img src={`http://localhost:3000/uploads/${row.image}`} alt="" />
+                            <img src={`${process.env.REACT_APP_URL_API}uploads/${row.image}`} alt="" />
                         </div>
                         <div className={`m-1 ${Style.title}`}>
                             <h3 className={`m-2 mt-0`}> {row.title} </h3>

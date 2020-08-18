@@ -32,7 +32,7 @@ class DetailPage extends Component{
         })
         // Axios({
         //     method : 'GET',
-        //     url : `http://localhost:3000/api/books/${this.props.match.params.id}`,
+        //     url : `${process.env.REACT_APP_URL_API}api/books/${this.props.match.params.id}`,
         //     headers : {
         //         Authorization : localStorage.getItem('token')
         //     }
@@ -74,7 +74,7 @@ class DetailPage extends Component{
         //     headers : {
         //         Authorization : localStorage.getItem('token')
         //     },
-        //     url : `http://localhost:3000/api/books/borrow/${this.props.match.params.id}`,
+        //     url : `${process.env.REACT_APP_URL_API}api/books/borrow/${this.props.match.params.id}`,
         //     data : {
         //         periode_of_time : 2
         //     }
@@ -118,7 +118,7 @@ class DetailPage extends Component{
                         <div className="col-md-8 col-sm-12">
                             <div className="d-flex flex-column justify-content-center">
                                 <div className={`${Style.coverImage}`}>
-                                    <img src={`http://localhost:3000/uploads/${this.props.book.book.image}`} alt="Nope"/>
+                                    <img src={`http://54.175.23.54:8080/uploads/${this.props.book.book.image}`} alt="Nope"/>
                                 </div>
                                 <div className={`${Style.detail}`}>
                                     <div className={`${Style.text} pt-3`}>
@@ -137,7 +137,7 @@ class DetailPage extends Component{
                             <div className={`${Style.bookDetail} `}>
                                 <div className={`d-flex flex-column justify-content-center align-items-center`}>
                                     <div className={`${Style.cardBook}`}>
-                                        <img src={`http://localhost:3000/uploads/${this.props.book.book.image}`} alt='nope'/>
+                                        <img src={`http://54.175.23.54:8080/uploads/${this.props.book.book.image}`} alt='nope'/>
                                     </div>
                                     <div className="title">
                                         <h5>Title Book</h5>

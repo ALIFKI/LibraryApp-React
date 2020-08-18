@@ -51,7 +51,7 @@ class SearchPage extends Component {
             headers : {
                 Authorization : this.props.auth.auth.token
             },
-            url : `http://localhost:3000/api/books?search=${this.state.search}&page=${this.state.current}&limit=${this.state.limit}&sort=${this.state.sort}&by=${this.state.by}&order=${this.state.order}`
+            url : `http://54.175.23.54:8080/api/books?search=${this.state.search}&page=${this.state.current}&limit=${this.state.limit}&sort=${this.state.sort}&by=${this.state.by}&order=${this.state.order}`
         }).then(
             (res)=>{
                 console.log(res)
@@ -80,7 +80,7 @@ class SearchPage extends Component {
             headers : {
                 Authorization : this.props.auth.auth.token
             },
-            url : `http://localhost:3000/api/books?search=${this.state.search}&page=${page}&limit=${this.state.limit}&sort=${this.state.sort}&by=${this.state.by}&order=${this.state.order}`
+            url : `http://54.175.23.54:8080/api/books?search=${this.state.search}&page=${page}&limit=${this.state.limit}&sort=${this.state.sort}&by=${this.state.by}&order=${this.state.order}`
         }).then(
             (res)=>{
                 console.log(res)

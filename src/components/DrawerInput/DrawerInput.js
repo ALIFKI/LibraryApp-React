@@ -43,7 +43,7 @@ class DrawerInput extends Component {
     getAllAuthor = ()=>{
       Axios({
         method : 'GET',
-        url : 'http://localhost:3000/api/authors?search=&limit=200&page=1&sort=0&by=author',
+        url : `${process.env.REACT_APP_URL_API}api/authors?search=&limit=200&page=1&sort=0&by=author`,
         headers : {
           Authorization : this.props.auth.auth.token
       },
@@ -62,7 +62,7 @@ class DrawerInput extends Component {
     getAllGenre = ()=>{
       Axios({
         method : 'GET',
-        url : 'http://localhost:3000/api/genres?search=&page=1&limit=10&sort=0&by=genre',
+        url : `${process.env.REACT_APP_URL_API}api/genres?search=&page=1&limit=10&sort=0&by=genre`,
         headers : {
           Authorization : this.props.auth.auth.token
       },
@@ -155,7 +155,7 @@ class DrawerInput extends Component {
       })
       // Axios({
       //   method : 'POST',
-      //   url : 'http://localhost:3000/api/books',
+      //   url : '${process.env.REACT_APP_URL_API}api/books',
       //   data : formData,
       //   headers : {
       //     'Content-Type' : 'multipart/form-data',

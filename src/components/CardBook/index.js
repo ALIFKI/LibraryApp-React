@@ -14,7 +14,7 @@ class CardBook extends Component {
         return (
             <div>
                 <div className={`${Style.card}`} >
-                    <img src={`http://localhost:3000/uploads/${this.props.data.image}`} alt=""/>
+                    <img src={`${process.env.REACT_APP_URL_API}uploads/${this.props.data.image}`} alt=""/>
                         <div className={`${Style.block}`} onClick={(e)=>{this.props.history.push('/details/page/'+this.props.data.id)}}>
                             <div className={`${Style.blockContent}`}>
                                 <h5> {this.props.data.title.substring(0,20)} </h5>

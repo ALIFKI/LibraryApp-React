@@ -19,16 +19,19 @@ const Auth = {
   },
   getLog(){
     if (true) {
-
       this.isLogin = true
     }
       return this.isLogin
   }
 }
+function getAuth (props){
+  return true
+}
 const SecureRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={
     (props) => (
-  Auth.getLog() == true
+      console.log(props),
+  getAuth(props) == true
       ? <Component {...props} />
       : <Redirect to='/login' />
   )
@@ -41,16 +44,26 @@ function App(props) {
     <>
     <Router>
       <Switch>
+
         {/* <SecureRoute path='/login' component={LoginPage} /> */}
-        <Route path='/login' component={LoginPage}/>
-        <Route path='/' exact component={LoginPage}/>
+        {
+      props.user.isLogin ? (
+        <>
         <SecureRoute path="/details/page/:id" component={DetailPage} login='da'/>
-        <Route path='/register' component={RegisterPage}/>
         <SecureRoute path='/dashboard' exact component={HomePage}/>
         <SecureRoute path='/genre' exact component={GenrePage}/>
         <SecureRoute path='/author' exact component={AuthorPage}/>
         <SecureRoute path='/home' exact component={LandingPage}/>
         <SecureRoute path='/search' exact component={SearchPage}/>
+        </>
+      ) : (
+        <>
+        <Route path='/register' component={RegisterPage}/>
+        <Route path='/login' component={LoginPage}/>
+        <Route path='/' exact component={LoginPage}/>
+        </>
+      )
+    }
         {/* <Route exact path="/redirect">
             {isLoggin ? <SearchPage/> : <Redirect to="/dashboard" />}
         </Route> */}
@@ -62,4 +75,4 @@ function App(props) {
 const mapStateToProps = state =>({
   user : state.auth 
 })
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App,getAuth);

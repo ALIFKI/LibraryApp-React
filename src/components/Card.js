@@ -53,7 +53,7 @@ class CardBook extends Component {
             className='detail'
             hoverable
             style={{ width: 230,overflow: 'hidden'}}
-            cover={<img alt="Picture" src={`http://localhost:3000/uploads/${this.props.data.image}`} className='detail'/>}>
+            cover={<img alt="Picture" src={`${process.env.REACT_APP_URL_API}uploads/${this.props.data.image}`} className='detail'/>}>
                 <div className={`${Style.float} ${Style.edit}`} onClick={(e)=>{this.setState({visible : true})}}>
                     <DrawerEdit visible={this.state.visible} id={this.props.data.id}/>
                 </div>

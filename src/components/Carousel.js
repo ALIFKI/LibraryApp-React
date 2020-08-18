@@ -16,7 +16,7 @@ class SliderComponent extends Component {
     getData = ()=>{
         Axios({
             method : 'GET',
-            url : 'http://localhost:3000/api/books/books?search=&page=1&limit=3&sort=0&by=title&order=created_at',
+            url : `${process.env.REACT_APP_URL_API}api/books/books?search=&page=1&limit=3&sort=0&by=title&order=created_at`,
             headers: {
                 Authorization : localStorage.getItem('token'),
             }

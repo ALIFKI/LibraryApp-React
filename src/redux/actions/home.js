@@ -7,7 +7,7 @@ export const getCarousel = (auth)=>{
         payload : 
         axios({
             method : 'GET',
-            url : 'http://localhost:3000/api/books?search=&page=1&limit=3&sort=0&by=title&order=created_at',
+            url : `${process.env.REACT_APP_URL_API}api/books?search=&page=1&limit=3&sort=0&by=title&order=created_at`,
             headers: {
                 Authorization : auth
             }
@@ -21,7 +21,7 @@ export const getGenre = (token)=>{
         payload : 
         axios({
             method : 'GET',
-        url : 'http://localhost:3000/api/books?search=&page=1&limit=100&sort=1&by=title&order=title',
+        url : `${process.env.REACT_APP_URL_API}api/books?search=&page=1&limit=100&sort=1&by=title&order=title`,
             headers: {
                 Authorization : token
             }
@@ -35,7 +35,7 @@ export const getData = (token) =>{
         payload :         
         axios({
             method : 'GET',
-            url : 'http://localhost:3000/api/books?search=&page=1&limit=100&sort=0&by=title&order=title',
+            url : `${process.env.REACT_APP_URL_API}api/books?search=&page=1&limit=100&sort=0&by=title&order=title`,
             headers: {
                 Authorization : token,
             }

@@ -25,7 +25,7 @@ class CardSearch extends Component {
         })
         Axios({
             method : 'DELETE',
-            url : 'http://localhost:3000/api/books/'+id,
+            url : `${process.env.REACT_APP_URL_API}api/books/`+id,
             headers : {
                 Authorization : localStorage.getItem('token')
             }
@@ -49,7 +49,7 @@ class CardSearch extends Component {
             className='detail'
             hoverable
             style={{ width: 230,overflow: 'hidden'}}
-            cover={<img alt="Picture" src={`http://localhost:3000/uploads/${this.props.data.image}`} className='detail'/>}>
+            cover={<img alt="Picture" src={`${process.env.REACT_APP_URL_API}uploads/${this.props.data.image}`} className='detail'/>}>
             <Meta title={this.props.data.title} description={this.props.data.desc} />
           </Card>
           </div>
