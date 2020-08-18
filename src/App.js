@@ -50,6 +50,18 @@ function App(props) {
       props.user.isLogin ? (
         <>
         <SecureRoute path="/details/page/:id" component={DetailPage} login='da'/>
+        {
+          props.user.auth.role == 1?(
+            <>
+              <SecureRoute path='/' exact component={HomePage}/>
+            </>
+          ):
+          (
+            <>
+              <SecureRoute path='/' exact component={LandingPage}/>
+            </>
+          )
+        }
         <SecureRoute path='/dashboard' exact component={HomePage}/>
         <SecureRoute path='/genre' exact component={GenrePage}/>
         <SecureRoute path='/author' exact component={AuthorPage}/>
