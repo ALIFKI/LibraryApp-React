@@ -166,13 +166,6 @@ class SearchPage extends Component {
         else{
             pagination = <div className="l"></div>
         }
-        if(this.state.user.role == 1){
-
-        }
-        else{
-
-        }
-        
         return (
             <>
             <Container fluid>
