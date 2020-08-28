@@ -137,7 +137,7 @@ class DetailPage extends Component{
                             <div className={`${Style.bookDetail} `}>
                                 <div className={`d-flex flex-column justify-content-center align-items-center`}>
                                     <div className={`${Style.cardBook}`}>
-                                        <img src={`${process.env.REACT_APP_URL_API}/uploads/${this.props.book.book.image}`} alt='nope'/>
+                                        <img src={`${process.env.REACT_APP_URL_API}uploads/${this.props.book.book.image}`} alt='nope'/>
                                     </div>
                                     <div className="title">
                                         <h5>Title Book</h5>
